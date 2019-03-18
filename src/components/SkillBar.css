@@ -1,0 +1,67 @@
+.skill-box {
+    background: url(../assets/ActionBar3.png);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 790px;
+    height: 177px;
+}
+.skill-shortcuts {
+    background: url(../assets/ActionBar3-shortcuts.png);
+    pointer-events: none;
+    position: absolute;
+    bottom: 26px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 585px;
+    height: 27px;
+}
+.skill-slot {
+    position: absolute;
+    bottom: 38.5px;
+    width: 41px;
+    height: 41px;
+}
+.skill-slot img {
+    height: 100%;
+    width: 100%;
+}
+.skill-slot.skill-slot-sm {
+    width: 31px;
+    height: 31px;
+}
+.skill-slot-q {
+    left: 96.5px;
+    bottom: 42.5px;
+}
+.skill-slot-1 {
+    left: 136.5px;
+}
+.skill-slot-2 {
+    left: 186.5px;
+}
+.skill-slot-3 {
+    left: 236.5px;
+}
+.skill-slot-4 {
+    left: 286.5px;
+}
+.skill-slot-5 {
+    right: 138.5px;
+}
+.skill-slot-6 {
+    right: 188.5px;
+}
+.skill-slot-7 {
+    right: 238.5px;
+}
+.skill-slot-8 {
+    right: 288.5px;
+}
+.skill-slot-e {
+    right: 98.5px;
+    bottom: 42.5px;
+}
