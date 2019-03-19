@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import './App.css';
 import SkillBar from './components/SkillBar';
 import Board from './components/Board';
+import CareerBoard from './components/CareerBoard';
 
 import { AppState } from './store';
 
@@ -40,6 +41,7 @@ class App extends Component<AppProps> {
         {/* <button onClick={e => (this.props.sendMessage({
           text: "点击开始启动游戏！"
         }))}>asda</button> */}
+        <CareerBoard />
         <SkillBar />
       </div>
     );

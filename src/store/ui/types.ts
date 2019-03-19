@@ -1,6 +1,7 @@
 export interface UIState {
     showStart: boolean
     showSkill: boolean
+    showCareer: boolean
 }
 
 export const START_GAME = 'START_GAME'

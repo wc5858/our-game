@@ -1,0 +1,58 @@
+.career-box {
+    background: url(../assets/classboard.png);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 402px;
+    height: 251px;
+}
+.race-slot,
+.career-slot {
+    position: absolute;
+    bottom: 31.5px;
+    width: 54px;
+    height: 54px;
+}
+.race-slot {
+    bottom: 147.5px;
+}
+.race-slot img,
+.career-slot img {
+    height: 100%;
+    width: 100%;
+}
+.career-slot-0 {
+    left: 59px;
+}
+.career-slot-1 {
+    left: 134px;
+}
+.career-slot-2 {
+    left: 209px;
+}
+.career-slot-3 {
+    left: 284px;
+}
+.career-selected::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: url(../assets/SELECTED_FRAME.png);
+    background-size: 70px 70px;
+    background-position: center;
+}
+.career-selected::after {
+    content: attr(data-name);
+    color: #a69785;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    font-size: 14px;
+    font-weight: bold;
+}

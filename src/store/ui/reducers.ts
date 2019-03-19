@@ -6,7 +6,8 @@ import {
 
 const initialState: UIState = {
     showStart: true,
-    showSkill: false
+    showSkill: false,
+    showCareer: false
 }
 
 export function uiReducer(
@@ -17,7 +18,8 @@ export function uiReducer(
         case START_GAME:
             return Object.assign({}, state, {
                 showStart: false,
-                showSkill: true
+                showSkill: true,
+                showCareer: true
             })
         default:
             return state

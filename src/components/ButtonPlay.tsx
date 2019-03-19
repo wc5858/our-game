@@ -4,6 +4,7 @@ import './ButtonPlay.css';
 import { connect } from "react-redux";
 import { AppState } from '../store';
 import { initCharacter } from '../store/character/actions';
+import { sendMessage } from '../store/board/actions';
 import { startGame } from '../store/ui/actions';
 
 const mapStateToProps = (state: AppState) => ({
@@ -12,15 +13,14 @@ const mapStateToProps = (state: AppState) => ({
 
 interface ButtonPlayProps {
     show: boolean
+    sendMessage: typeof sendMessage
     initCharacter: typeof initCharacter
     startGame: typeof startGame
 }
 
 class ButtonPlay extends Component<ButtonPlayProps> {
-    show: boolean
     constructor(props: object) {
         super(props as ButtonPlayProps)
-        this.show = true
     }
     handleClick = () => {
         this.props.initCharacter({
@@ -28,6 +28,9 @@ class ButtonPlay extends Component<ButtonPlayProps> {
             careerID: '001'
         })
         this.props.startGame()
+        this.props.sendMessage({
+            text: '游戏开始！请选择种族和职业！'
+        })
     }
     render() {
         return (
@@ -38,5 +41,5 @@ class ButtonPlay extends Component<ButtonPlayProps> {
 
 export default connect(
     mapStateToProps,
-    { initCharacter, startGame }
+    { initCharacter, startGame, sendMessage }
 )(ButtonPlay);

@@ -4,7 +4,7 @@
     height: 100px;
     left: 0;
     right: 0;
-    top: calc(50% + 20px);
+    top: 50%;
     margin: 0 auto;
     background: url(../assets/play.png) no-repeat;
     background-position: center 8.5px;
