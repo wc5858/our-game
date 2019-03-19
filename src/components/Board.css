@@ -5,6 +5,7 @@
     margin: 0 auto;
     height: 100vh;
     width: 960px;
+    overflow: hidden;
 }
 .board-info {
     position: absolute;

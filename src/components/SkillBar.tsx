@@ -3,7 +3,7 @@ import avatar1 from '../assets/avatar1.jpg';
 import './SkillBar.css';
 
 const listItems = [1, 2, 3, 4, 5, 6, 7, 8].map((number) =>
-  <div className={`skill-slot skill-slot-${number}`}>
+  <div className={`skill-slot skill-slot-${number}`} key={number}>
     <img src={avatar1} />
   </div>
 );

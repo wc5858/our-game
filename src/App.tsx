@@ -7,15 +7,21 @@ import Board from './components/Board';
 import { AppState } from './store';
 
 import { BoardState } from './store/board/types';
+import { CharacterState } from './store/character/types';
+
 import { sendMessage } from './store/board/actions';
+import { initCharacter } from './store/character/actions';
 
 const mapStateToProps = (state: AppState) => ({
-  board: state.board
+  board: state.board,
+  character: state.character
 })
 
 interface AppProps {
   sendMessage: typeof sendMessage
+  initCharacter: typeof initCharacter
   board: BoardState
+  character: CharacterState
 }
 
 class App extends Component<AppProps> {
@@ -29,7 +35,8 @@ class App extends Component<AppProps> {
   render() {
     return (
       <div className="App">
-        <Board messages={this.props.board.messages} sendMessage={this.props.sendMessage}/>
+        <Board messages={this.props.board.messages}
+          sendMessage={this.props.sendMessage} />
         {/* <button onClick={e => (this.props.sendMessage({
           text: "点击开始启动游戏！"
         }))}>asda</button> */}
@@ -41,5 +48,5 @@ class App extends Component<AppProps> {
 
 export default connect(
   mapStateToProps,
-  { sendMessage }
+  { sendMessage, initCharacter }
 )(App)

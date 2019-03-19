@@ -2,12 +2,22 @@ import React, { Component } from 'react';
 import './Board.css';
 import TypedText from './TypedText';
 import ButtonPlay from './ButtonPlay';
+
+import { connect } from "react-redux";
+import { AppState } from '../store';
 import { Message } from "../store/board/types";
 import { sendMessage } from '../store/board/actions';
+import { initCharacter } from '../store/character/actions';
+
+const mapStateToProps = (state: AppState) => ({
+  board: state.board,
+  character: state.character
+})
 
 interface BoardProps {
-  messages: Message[];
-  sendMessage: typeof sendMessage;
+  messages: Message[]
+  initCharacter: typeof initCharacter
+  sendMessage: typeof sendMessage
 }
 
 class Board extends Component<BoardProps> {
@@ -18,8 +28,8 @@ class Board extends Component<BoardProps> {
     return (
       <div className="board">
         <div className="board-info">
-          {this.props.messages.map(message=>(
-            <TypedText str={message.text}/>
+          {this.props.messages.map((message,idx)=>(
+            <TypedText str={message.text} key={idx}/>
           ))}
         </div>
         <ButtonPlay />
@@ -28,4 +38,7 @@ class Board extends Component<BoardProps> {
   }
 }
 
-export default Board;
+export default connect(
+  mapStateToProps,
+  { initCharacter }
+)(Board);
