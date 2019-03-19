@@ -1,5 +1,3 @@
-// src/store/chat/reducers.ts
-
 import {
     BoardState,
     BoardActionTypes,
