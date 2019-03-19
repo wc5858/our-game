@@ -1,0 +1,16 @@
+.board {
+    position: relative;
+    color: white;
+    background: #111;
+    margin: 0 auto;
+    height: 100vh;
+    width: 960px;
+}
+.board-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 50%;
+    user-select:none;
+}

@@ -9,7 +9,26 @@ const listItems = [1, 2, 3, 4, 5, 6, 7, 8].map((number) =>
 );
 
 class SkillBar extends Component {
+
+  handleKeyPress(e: any) {
+    switch (e.keyCode) {
+      case 101:
+        // E
+        break;
+        case 113:
+        // Q
+        break;
+      default:
+        break;
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('keypress', this.handleKeyPress)
+  }
+
   render() {
+
     return (
       <div className="skill-box">
         <div className="skill-slot skill-slot-sm skill-slot-q">
