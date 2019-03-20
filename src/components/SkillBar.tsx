@@ -8,6 +8,8 @@ import { initCharacter } from '../store/character/actions';
 import { sendMessage } from '../store/board/actions';
 import { startGame } from '../store/ui/actions';
 
+import game from '../game'
+
 const mapStateToProps = (state: AppState) => ({
   show: state.ui.showSkill
 })
@@ -29,6 +31,7 @@ class SkillBar extends Component<SkillBarProps> {
   }
 
   handleKeyPress(e: any) {
+    game.doSth()
     switch (e.keyCode) {
       case 101:
         // E

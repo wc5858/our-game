@@ -10,6 +10,8 @@ import { initCharacter } from '../store/character/actions';
 import { sendMessage } from '../store/board/actions';
 import { startGame } from '../store/ui/actions';
 
+import game from '../game'
+
 const mapStateToProps = (state: AppState) => ({
   show: state.ui.showCareer
 })
@@ -69,6 +71,7 @@ class CareerBoard extends Component<CareerBoardProps> {
     this.props.sendMessage({
       text: '游戏开始！'
     })
+    game.init()
   }
 
   render() {
