@@ -12,6 +12,7 @@ import { CharacterState } from './store/character/types';
 
 import { sendMessage } from './store/board/actions';
 import { initCharacter } from './store/character/actions';
+import { initGame } from './store/ui/actions';
 
 const mapStateToProps = (state: AppState) => ({
   board: state.board,
@@ -21,15 +22,20 @@ const mapStateToProps = (state: AppState) => ({
 interface AppProps {
   sendMessage: typeof sendMessage
   initCharacter: typeof initCharacter
+  initGame: typeof initGame
   board: BoardState
   character: CharacterState
 }
 
 class App extends Component<AppProps> {
 
+  componentWillMount() {
+    // this.props.initGame()
+  }
+
   componentDidMount() {
     this.props.sendMessage({
-      text: "点击开始启动游戏！"
+      text: "请选择种族、职业后点击PLAY启动游戏！"
     })
   }
 
@@ -38,9 +44,6 @@ class App extends Component<AppProps> {
       <div className="App">
         <Board messages={this.props.board.messages}
           sendMessage={this.props.sendMessage} />
-        {/* <button onClick={e => (this.props.sendMessage({
-          text: "点击开始启动游戏！"
-        }))}>asda</button> */}
         <CareerBoard />
         <SkillBar />
       </div>
@@ -50,5 +53,5 @@ class App extends Component<AppProps> {
 
 export default connect(
   mapStateToProps,
-  { sendMessage, initCharacter }
+  { sendMessage, initCharacter, initGame }
 )(App)

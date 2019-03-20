@@ -9,12 +9,15 @@ export interface CharacterState {
     careerID: string
     hp: number
     mp: number
+    curHp: number
+    curMp: number
     equipments: string[]
     attackPower: number
     defensivePower: number
     critRate: number
     exp: number
     level: number
+    money: number
 }
 
 export const DAMAGE_HP = 'DAMAGE_HP'

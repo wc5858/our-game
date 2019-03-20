@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Board.css';
 import TypedText from './TypedText';
-import ButtonPlay from './ButtonPlay';
 
 import { connect } from "react-redux";
 import { AppState } from '../store';
@@ -32,7 +31,6 @@ class Board extends Component<BoardProps> {
             <TypedText str={message.text} key={idx}/>
           ))}
         </div>
-        <ButtonPlay />
       </div>
     );
   }

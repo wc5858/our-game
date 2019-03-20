@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import avatar1 from '../assets/avatar1.jpg';
-import './SkillBar.css';
+import './TopBar.css';
 
 import { connect } from "react-redux";
 import { AppState } from '../store';
@@ -12,7 +12,7 @@ const mapStateToProps = (state: AppState) => ({
   show: state.ui.showSkill
 })
 
-interface SkillBarProps {
+interface TopBarProps {
   show: boolean
 }
 
@@ -22,10 +22,10 @@ const listItems = [1, 2, 3, 4, 5, 6, 7, 8].map((number) =>
   </div>
 );
 
-class SkillBar extends Component<SkillBarProps> {
+class TopBar extends Component<TopBarProps> {
 
   constructor(props: object) {
-    super(props as SkillBarProps)
+    super(props as TopBarProps)
   }
 
   handleKeyPress(e: any) {
@@ -48,15 +48,8 @@ class SkillBar extends Component<SkillBarProps> {
   render() {
 
     return this.props.show ? (
-      <div className="skill-box">
-        <div className="skill-slot skill-slot-sm skill-slot-q">
-          <img src={avatar1} />
-        </div>
-        <div className="skill-slot skill-slot-sm skill-slot-e">
-          <img src={avatar1} />
-        </div>
-        {listItems}
-        <div className="skill-shortcuts"></div>
+      <div className="top-box">
+        
       </div>
     ) : null
   }
@@ -65,4 +58,4 @@ class SkillBar extends Component<SkillBarProps> {
 export default connect(
   mapStateToProps,
   {}
-)(SkillBar);
+)(TopBar);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import avatar1 from '../assets/avatar1.jpg';
+import ButtonPlay from './ButtonPlay';
 import './CareerBoard.css';
 import careers from '../data/career';
 import races from '../data/races';
@@ -16,6 +16,9 @@ const mapStateToProps = (state: AppState) => ({
 
 interface CareerBoardProps {
   show: boolean
+  sendMessage: typeof sendMessage
+  initCharacter: typeof initCharacter
+  startGame: typeof startGame
 }
 
 function getList(type: string, careers: object, cb: Function, curSelected: number) {
@@ -57,18 +60,32 @@ class CareerBoard extends Component<CareerBoardProps> {
   componentDidMount() {
   }
 
+  playGame = () => {
+    this.props.initCharacter({
+      name: '二狗',
+      careerID: '001'
+    })
+    this.props.startGame()
+    this.props.sendMessage({
+      text: '游戏开始！'
+    })
+  }
+
   render() {
 
     return this.props.show ? (
-      <div className="career-box">
-        {getList('race', races, this.selectRace, this.state.raceSelected)}
-        {getList('career', careers, this.selectCareer, this.state.careerSelected)}
-      </div>
+      <div>
+        <div className="career-box">
+          {getList('race', races, this.selectRace, this.state.raceSelected)}
+          {getList('career', careers, this.selectCareer, this.state.careerSelected)}
+        </div>
+        <ButtonPlay btnClick={this.playGame}/>
+      </div>  
     ) : null
   }
 }
 
 export default connect(
   mapStateToProps,
-  {}
+  { initCharacter, startGame, sendMessage }
 )(CareerBoard);

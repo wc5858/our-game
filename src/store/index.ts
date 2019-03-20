@@ -12,12 +12,7 @@ const rootReducer = combineReducers({
 
 export type AppState = ReturnType<typeof rootReducer>
 
-export default function configureStore() {
-
-  const store = createStore(
-    rootReducer,
-    composeWithDevTools()
-  )
-
-  return store
-}
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools()
+)
