@@ -29,7 +29,8 @@ class TypedText extends Component<Props> {
             }
         };
         // this.el refers to the <span> in the render() method
-        this.typed = new Typed(this.el, options);
+        // this.typed = new Typed(this.el, options);
+        this.el.innerHTML = this.props.str
     }
 
     componentWillUnmount() {
