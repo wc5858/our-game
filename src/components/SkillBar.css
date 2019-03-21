@@ -79,6 +79,7 @@
     background: url(../assets/fill_hp.png);
     background-size: 35px 112px;
     background-position-y: bottom;
+    transition: height 0.5s;
 }
 .skill-hp::after {
     content: '';
@@ -107,6 +108,7 @@
     background: url(../assets/fill_mp.png);
     background-size: 34px 112px;
     background-position-y: bottom;
+    transition: height 0.5s;
 }
 .skill-mp::after {
     content: '';

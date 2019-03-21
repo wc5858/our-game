@@ -1,46 +1,30 @@
 import avatar1 from '../assets/avatar1.jpg'
 export default {
     '001': {
-        name: '程序员',
+        name: '熊猫人',
         avatar: avatar1,
-        skillTree: {
-
-        },
-        attackGrow: 1.5,
-        defensiveGrow: 1,
+        attackGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     },
     '002': {
-        name: '段子手',
+        name: '巫妖',
         avatar: avatar1,
-        skillTree: {
-
-        },
-        attackGrow: 1.5,
-        defensiveGrow: 1,
+        attackGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     },
     '003': {
-        name: '微商',
+        name: '鶸',
         avatar: avatar1,
-        skillTree: {
-
-        },
-        attackGrow: 1.5,
-        defensiveGrow: 1,
+        attackGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     },
     '004': {
-        name: '微博大V',
+        name: '鸽子',
         avatar: avatar1,
-        skillTree: {
-
-        },
-        attackGrow: 1.5,
-        defensiveGrow: 1,
+        attackGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     }

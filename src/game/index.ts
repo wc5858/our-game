@@ -1,12 +1,12 @@
 import RoundSingleton from "./RoundSingleton";
 
-let gameCore = RoundSingleton.getInstance()
+let roundRunner = RoundSingleton.getInstance()
 
 export default {
     init() {
-        gameCore.init()
+        roundRunner.init()
     },
     doSth() {
-        gameCore.doSth()
+        roundRunner.doSth()
     }
 }
