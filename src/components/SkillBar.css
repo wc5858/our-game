@@ -65,3 +65,59 @@
     right: 98.5px;
     bottom: 42.5px;
 }
+.skill-hp {
+    position: absolute;
+    width: 35px;
+    height: 112px;
+    left: 351px;
+    top: 34px;
+}
+.skill-hp .hp-bar {
+    position: absolute;
+    width: 35px;
+    bottom: 0;
+    background: url(../assets/fill_hp.png);
+    background-size: 35px 112px;
+    background-position-y: bottom;
+}
+.skill-hp::after {
+    content: '';
+    width: 35px;
+    height: 112px;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: url(../assets/ab3_stat_overlay_left.png);
+    background-size: 35px 112px;
+    background-position-y: bottom;
+}
+.skill-mp {
+    position: absolute;
+    width: 34px;
+    height: 112px;
+    left: 404px;
+    top: 34px;
+}
+.skill-mp .mp-bar {
+    position: absolute;
+    width: 34px;
+    bottom: 0;
+    background: url(../assets/fill_mp.png);
+    background-size: 34px 112px;
+    background-position-y: bottom;
+}
+.skill-mp::after {
+    content: '';
+    width: 34px;
+    height: 112px;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: url(../assets/ab3_stat_overlay_right.png);
+    background-size: 34px 112px;
+    background-position-y: bottom;
+}

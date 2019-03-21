@@ -13,7 +13,7 @@ import { startGame } from '../store/ui/actions';
 import game from '../game'
 
 const mapStateToProps = (state: AppState) => ({
-  show: state.ui.showCareer
+  show: state.ui.showCareer,
 })
 
 interface CareerBoardProps {

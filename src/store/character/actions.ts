@@ -1,10 +1,18 @@
-import { CharacterInitData, INIT_CHARACTER } from './types'
+import * as types from './types'
 
-// TypeScript infers that this function is returning BoardActionTypes
-export function initCharacter(data: CharacterInitData) {
+export function initCharacter(data: types.CharacterInitData) {
   return {
-    type: INIT_CHARACTER,
+    type: types.INIT_CHARACTER,
     name: data.name,
     careerID: data.careerID
+  }
+}
+
+export function updateHp(data: {
+  value: number
+}) {
+  return {
+    type: types.UPDATE_HP,
+    value: data.value
   }
 }

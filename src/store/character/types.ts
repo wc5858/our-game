@@ -13,6 +13,7 @@ export interface CharacterState {
     curMp: number
     equipments: string[]
     attackPower: number
+    attackSpeed: number
     defensivePower: number
     critRate: number
     exp: number
@@ -20,8 +21,8 @@ export interface CharacterState {
     money: number
 }
 
-export const DAMAGE_HP = 'DAMAGE_HP'
-export const DAMAGE_MP = 'DAMAGE_MP'
+export const UPDATE_HP = 'DAMAGE_HP'
+export const UPDATE_MP = 'DAMAGE_MP'
 export const RECOVER_HP = 'RECOVER_HP'
 export const RECOVER_MP = 'RECOVER_MP'
 export const INIT_CHARACTER = 'INIT_CHARACTER'
@@ -31,6 +32,10 @@ export interface InitCharacterAction {
     name: string
     careerID: string
 }
+export interface UpdateHpAction {
+    type: typeof UPDATE_HP
+    value: string
+}
 
 
-export type CharacterActionTypes = InitCharacterAction
+export type CharacterActionTypes = InitCharacterAction | UpdateHpAction
