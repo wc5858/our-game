@@ -1,5 +1,7 @@
 import avatar1 from '../assets/avatar1.jpg'
-export default {
+const data: {
+    [key: string]: any
+} = {
     '001': {
         name: '程序员',
         avatar: avatar1,
@@ -45,3 +47,4 @@ export default {
         mpGrow: 10,
     }
 }
+export default data

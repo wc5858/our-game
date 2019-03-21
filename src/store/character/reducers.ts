@@ -9,6 +9,7 @@ const initialState: CharacterState = {
   name: '',
   avatar: '',
   careerID: '',
+  raceID: '',
   hp: 100,
   mp: 100,
   curHp: 100,
@@ -16,8 +17,10 @@ const initialState: CharacterState = {
   equipments: [],
   attackPower: 10,
   attackSpeed: 1,
-  defensivePower: 10,
   critRate: 0,
+  attackGrow: 1,
+  hpGrow: 10,
+  mpGrow: 10,
   exp: 0,
   level: 1,
   money: 0
@@ -29,12 +32,9 @@ export function characterReducer(
 ): CharacterState {
   switch (action.type) {
     case INIT_CHARACTER:
-      return Object.assign({},state,{
-        name: action.name,
-        careerID: action.careerID
-      })
+      return Object.assign({}, state, action.payload)
     case UPDATE_HP:
-      return Object.assign({},state,{
+      return Object.assign({}, state, {
         curHp: action.value
       })
     default:

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import ButtonPlay from './ButtonPlay';
 import './CareerBoard.css';
-import careers from '../data/career';
+import careers from '../data/careers';
 import races from '../data/races';
 
 import { connect } from "react-redux";
 import { AppState } from '../store';
-import { initCharacter } from '../store/character/actions';
 import { sendMessage } from '../store/board/actions';
 import { startGame } from '../store/ui/actions';
 
 import game from '../game'
+
+const raceData = Object.entries(races)
+const careerData = Object.entries(careers)
 
 const mapStateToProps = (state: AppState) => ({
   show: state.ui.showCareer,
@@ -19,15 +21,14 @@ const mapStateToProps = (state: AppState) => ({
 interface CareerBoardProps {
   show: boolean
   sendMessage: typeof sendMessage
-  initCharacter: typeof initCharacter
   startGame: typeof startGame
 }
 
-function getList(type: string, careers: object, cb: Function, curSelected: number) {
-  return Object.entries(careers).map(([key, data], idx) =>
-    <div className={`${type}-slot career-slot-${idx} ${idx == curSelected ? 'career-selected' : ''}`}
+function getList(type: string, dataArr: [string, { name: string; avatar: string }][], cb: Function, curSelected: string) {
+  return dataArr.map(([key, data], idx) =>
+    <div className={`${type}-slot career-slot-${idx} ${key == curSelected ? 'career-selected' : ''}`}
       data-name={data.name}
-      onClick={() => cb(idx)} key={key}>
+      onClick={() => cb(key)} key={idx}>
       <img src={data.avatar} />
     </div>
   )
@@ -35,60 +36,55 @@ function getList(type: string, careers: object, cb: Function, curSelected: numbe
 
 class CareerBoard extends Component<CareerBoardProps> {
   state: {
-    raceSelected: number
-    careerSelected: number
+    raceSelected: string
+    careerSelected: string
   }
 
   constructor(props: object) {
     super(props as CareerBoardProps)
     this.state = {
-      raceSelected: 0,
-      careerSelected: 0
+      raceSelected: Object.entries(races)[0][0],
+      careerSelected: Object.entries(careers)[0][0],
     }
   }
 
-  selectCareer = (i: number) => {
+  selectCareer = (key: string) => {
     this.setState({
-      careerSelected: i
+      careerSelected: key
     })
   }
 
-  selectRace = (i: number) => {
+  selectRace = (key: string) => {
     this.setState({
-      raceSelected: i
+      raceSelected: key
     })
-  }
-
-  componentDidMount() {
   }
 
   playGame = () => {
-    this.props.initCharacter({
-      name: '二狗',
-      careerID: '001'
-    })
     this.props.startGame()
     this.props.sendMessage({
       text: '游戏开始！'
     })
-    game.init()
+    game.init({
+      raceID: this.state.raceSelected,
+      careerID: this.state.careerSelected
+    })
   }
 
   render() {
-
     return this.props.show ? (
       <div>
         <div className="career-box">
-          {getList('race', races, this.selectRace, this.state.raceSelected)}
-          {getList('career', careers, this.selectCareer, this.state.careerSelected)}
+          {getList('race', raceData, this.selectRace, this.state.raceSelected)}
+          {getList('career', careerData, this.selectCareer, this.state.careerSelected)}
         </div>
-        <ButtonPlay btnClick={this.playGame}/>
-      </div>  
+        <ButtonPlay btnClick={this.playGame} />
+      </div>
     ) : null
   }
 }
 
 export default connect(
   mapStateToProps,
-  { initCharacter, startGame, sendMessage }
+  { startGame, sendMessage }
 )(CareerBoard);

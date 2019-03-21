@@ -3,8 +3,7 @@ import * as types from './types'
 export function initCharacter(data: types.CharacterInitData) {
   return {
     type: types.INIT_CHARACTER,
-    name: data.name,
-    careerID: data.careerID
+    payload: data
   }
 }
 
