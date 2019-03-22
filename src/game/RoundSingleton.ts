@@ -1,5 +1,5 @@
 import { Round } from "./types"
-import { monsters } from '../data/monsters'
+import monsters from '../data/monsters'
 import * as util from './util'
 import BattleRound from './BattleRound'
 

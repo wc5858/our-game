@@ -21,7 +21,7 @@ export default {
             name: '沉睡的朱老板',
             avatar: race.avatar,
             career: career.name,
-            race: career.name,
+            race: race.name,
             careerID: options.careerID,
             raceID: options.raceID,
             attackGrow: character.attackGrow + race.attackGrow + career.attackGrow,

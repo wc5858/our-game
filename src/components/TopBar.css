@@ -9,3 +9,40 @@
     background: url(../assets/top_bar.png) no-repeat;
     background-size: contain;
 }
+.topbar-avatar {
+    position: absolute;
+    height: 38px;
+    width: 38px;
+    left: 116px;
+    top: 10.5px;
+}
+.topbar-avatar img {
+    height: 100%;
+    width: 100%;
+}
+.topbar-info {
+    position: absolute;
+    left: 165px;
+    top: 9px;
+    font-size: 14px;
+    color: #a69785;
+}
+.topbar-data {
+    position: absolute;
+    left: 180px;
+    top: 31px;
+    font-size: 14px;
+    color: #a69785;
+}
+.topbar-data span:nth-child(1) {
+    position: absolute;
+    left: 4px;
+}
+.topbar-data span:nth-child(2) {
+    position: absolute;
+    left: 82px;
+}
+.topbar-data span:nth-child(3) {
+    position: absolute;
+    left: 155px;
+}

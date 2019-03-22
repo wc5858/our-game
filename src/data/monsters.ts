@@ -1,4 +1,8 @@
-export const monsters = {
+import { Monster } from "../game/types";
+
+const data: {
+    [key: string]: Monster
+} = {
     '001': {
         name: '很强的怪物',
         hpRate: 2,
@@ -9,3 +13,5 @@ export const monsters = {
         xpAward: 0.1
     }
 }
+
+export default data

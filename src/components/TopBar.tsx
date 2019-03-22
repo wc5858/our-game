@@ -7,13 +7,30 @@ import { AppState } from '../store';
 import { initCharacter } from '../store/character/actions';
 import { sendMessage } from '../store/board/actions';
 import { startGame } from '../store/ui/actions';
+import { race } from 'q';
 
 const mapStateToProps = (state: AppState) => ({
-  show: state.ui.showSkill
+  show: state.ui.showSkill,
+  avatar: state.character.avatar,
+  race: state.character.race,
+  career: state.character.career,
+  name: state.character.name,
+  level: state.character.level,
+  money: state.character.money,
+  attack: state.character.attackPower,
+  gem: state.character.gem
 })
 
 interface TopBarProps {
   show: boolean
+  avatar: string
+  race: string
+  career: string
+  name: string
+  level: number
+  money: number
+  attack: number
+  gem: number
 }
 
 const listItems = [1, 2, 3, 4, 5, 6, 7, 8].map((number) =>
@@ -35,7 +52,15 @@ class TopBar extends Component<TopBarProps> {
 
     return this.props.show ? (
       <div className="topbar-box">
-        
+        <div className="topbar-avatar">
+          <img src={this.props.avatar} />
+        </div>
+        <div className="topbar-info">{`${this.props.race} ${this.props.career} ${this.props.name} lv${this.props.level}`}</div>
+        <div className="topbar-data">
+          <span>{this.props.money}</span>
+          <span>{this.props.attack}</span>
+          <span>{this.props.gem}</span>
+        </div>
       </div>
     ) : null
   }

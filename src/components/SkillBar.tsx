@@ -81,6 +81,7 @@ class SkillBar extends Component<SkillBarProps> {
                 <div className="skill-xp">
                     <div className="xp-bar" style={{ width: `${this.props.xp * 100}%` }} />
                 </div>
+                <div className="skill-shortcuts"></div>
             </div>
         ) : null
     }
