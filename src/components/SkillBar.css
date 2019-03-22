@@ -65,6 +65,10 @@
     right: 98.5px;
     bottom: 42.5px;
 }
+.skill-slot-q img,
+.skill-slot-e img {
+    width: auto;
+}
 .skill-hp {
     position: absolute;
     width: 35px;
