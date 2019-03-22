@@ -45,6 +45,7 @@ class SkillBar extends Component<SkillBarProps> {
         switch (e.keyCode) {
             case 101:
                 // E
+                console.log(1)
                 game.usePotion(MP_POTION)
                 break;
             case 113:

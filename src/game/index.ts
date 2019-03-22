@@ -2,14 +2,15 @@ import RoundSingleton from "./RoundSingleton";
 import races from "../data/races";
 import careers from "../data/careers";
 import { store } from "../store";
-import { initCharacter, updateHp } from "../store/character/actions";
-import { HP_POTION,MP_POTION } from "./types";
+import { initCharacter} from "../store/character/actions";
 import { sendSimpleMessage } from "./util";
+import { CooldownComputer } from "./CooldownComputer";
+import { POTION_COOLDOWN } from "../data/consts";
+import { potionReflection } from "./reflections";
 
-let roundRunner = RoundSingleton.getInstance()
-
-// 这个算不算（或者能不能）改成适配器？
-export default {
+class Game {
+    private roundRunner = RoundSingleton.getInstance()
+    private coolDownMap = new Map<string, CooldownComputer>()
     init(options: {
         raceID: string
         careerID: string
@@ -30,30 +31,50 @@ export default {
             mpGrow: character.mpGrow + race.mpGrow + career.mpGrow
         }))
 
-        roundRunner.init()
-    },
+        this.roundRunner.init()
+    }
     doSth() {
-        roundRunner.doSth()
-    },
-    usePotion(type: string) {
+        this.roundRunner.doSth()
+    }
+    usePotion(key: string) {
+        // 检查key是否合法
+        if (!potionReflection.hasOwnProperty(key)) {
+            console.error('invalid potion key：' + key)
+            return
+        }
+        let cdComputer = this.coolDownMap.get(key)
+        // 获取映射
+        const pr = potionReflection[key]
+        if (!cdComputer) {
+            cdComputer = new CooldownComputer(POTION_COOLDOWN, () => {
+                sendSimpleMessage(`${pr.name}瓶已经冷却完毕！`)
+            })
+            this.coolDownMap.set(key, cdComputer)
+        }
         const character = store.getState().character
-        switch (type) {
-            case HP_POTION:
-                const newHp = character.curHp + 0.6 * character.hp
-                store.dispatch(updateHp({
-                    value: newHp > character.hp ? character.hp : newHp
-                }))
-                sendSimpleMessage(`回复了60%的血量`)
-                break;
-            case MP_POTION:
-                const newMp = character.curMp + 0.6 * character.mp
-                store.dispatch(updateHp({
-                    value: newMp > character.mp ? character.mp : newMp
-                }))
-                sendSimpleMessage(`回复了60%的蓝量`)
-                break;
-            default:
-                break;
+        if (cdComputer.getStatus()) {
+            const cur = character[pr.cur]
+            const max = character[pr.max]
+            const val = cur + 0.6 * max
+            store.dispatch(pr.action({
+                value: Math.min(val, max)
+            }))
+            sendSimpleMessage(`回复了60%的${pr.name}量`)
+        } else {
+            sendSimpleMessage(`${pr.name}瓶冷却中！`)
         }
     }
+    // useItem(type: string) {
+    //     const character = store.getState().character
+    //     switch (type) {
+    //         case HP_POTION:
+    //         case MP_POTION:
+    //             this.usePotion(type)
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 }
+
+export default new Game()

@@ -45,4 +45,4 @@ export type Skill = {
 }
 
 export const HP_POTION = 'HP_POTION'
-export const MP_POTION = 'HP_POTION'
+export const MP_POTION = 'MP_POTION'

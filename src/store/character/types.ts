@@ -26,6 +26,7 @@ export interface LevelUpData {
 }
 
 export interface CharacterState {
+    [key: string]: any
     name: string
     avatar: string
     career: string

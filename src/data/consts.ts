@@ -1,0 +1,1 @@
+export const POTION_COOLDOWN = 5000
