@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import avatar1 from '../assets/avatar1.jpg';
-import fill_mp from '../assets/fill_mp.png';
-import fill_hp from '../assets/fill_hp.png';
-import fill_xp from '../assets/fill_xp.png';
+import ab2_POTION_Blue from '../assets/ab2_POTION_Blue.png';
+import ab2_POTION_Burning from '../assets/ab2_POTION_Burning.png';
 import './SkillBar.css';
 
 import { connect } from "react-redux";
 import { AppState } from '../store';
-import { initCharacter } from '../store/character/actions';
-import { sendMessage } from '../store/board/actions';
-import { startGame } from '../store/ui/actions';
 
 import game from '../game'
+import { MP_POTION, HP_POTION } from '../game/types';
 
 const mapStateToProps = (state: AppState) => ({
     show: state.ui.showSkill,
@@ -48,9 +45,11 @@ class SkillBar extends Component<SkillBarProps> {
         switch (e.keyCode) {
             case 101:
                 // E
+                game.usePotion(MP_POTION)
                 break;
             case 113:
                 // Q
+                game.usePotion(HP_POTION)
                 break;
             default:
                 break;
@@ -65,11 +64,11 @@ class SkillBar extends Component<SkillBarProps> {
 
         return this.props.show ? (
             <div className="skill-box">
-                <div className="skill-slot skill-slot-sm skill-slot-q">
-                    <img src={avatar1} />
+                <div className="skill-slot skill-slot-sm skill-slot-q" onClick={()=>game.usePotion(HP_POTION)}>
+                    <img src={ab2_POTION_Burning} />
                 </div>
-                <div className="skill-slot skill-slot-sm skill-slot-e">
-                    <img src={avatar1} />
+                <div className="skill-slot skill-slot-sm skill-slot-e" onClick={()=>game.usePotion(MP_POTION)}>
+                    <img src={ab2_POTION_Blue} />
                 </div>
                 {listItems}
                 <div className="skill-hp">

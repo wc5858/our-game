@@ -32,3 +32,6 @@ export type Career = {
     mpGrow: number
     skillTree: object
 }
+
+export const HP_POTION = 'HP_POTION'
+export const MP_POTION = 'HP_POTION'
