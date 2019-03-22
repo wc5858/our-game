@@ -28,27 +28,13 @@ class TopBar extends Component<TopBarProps> {
     super(props as TopBarProps)
   }
 
-  handleKeyPress(e: any) {
-    switch (e.keyCode) {
-      case 101:
-        // E
-        break;
-      case 113:
-        // Q
-        break;
-      default:
-        break;
-    }
-  }
-
   componentDidMount() {
-    window.addEventListener('keypress', this.handleKeyPress)
   }
 
   render() {
 
     return this.props.show ? (
-      <div className="top-box">
+      <div className="topbar-box">
         
       </div>
     ) : null

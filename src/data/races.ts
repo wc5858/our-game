@@ -1,6 +1,7 @@
 import avatar1 from '../assets/avatar1.jpg'
+import { Race } from '../game/types';
 const data: {
-    [key: string]: any
+    [key: string]: Race
 } = {
     '001': {
         name: '熊猫人',

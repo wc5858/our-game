@@ -6,11 +6,11 @@ export const getRandomItem = function (items: object) {
     return data[Math.floor(Math.random() * data.length)][1]
 }
 
-export const getDrift = function () {
-    return Math.random() * 0.4 + 0.8
+export const getDrift = function (val: number) {
+    return Math.round((Math.random() * 0.4 + 0.8) * val)
 }
 
-export const sendSimpleMessage = function(text: string) {
+export const sendSimpleMessage = function (text: string) {
     store.dispatch(sendMessage({
         text: text
     }))

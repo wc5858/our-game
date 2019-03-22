@@ -1,5 +1,8 @@
 export interface CharacterInitData {
     name: string
+    avatar: string
+    career: string
+    race: string
     careerID: string
     raceID: string
     attackGrow: number
@@ -7,9 +10,18 @@ export interface CharacterInitData {
     mpGrow: number
 }
 
+export interface AwardData {
+    exp: number
+    level: number
+    money: number
+    gem: number
+}
+
 export interface CharacterState {
     name: string
     avatar: string
+    career: string
+    race: string
     careerID: string
     raceID: string
     hp: number
@@ -26,22 +38,30 @@ export interface CharacterState {
     exp: number
     level: number
     money: number
+    gem: number
 }
 
 export const UPDATE_HP = 'UPDATE_HP'
 export const UPDATE_MP = 'UPDATE_MP'
-export const RECOVER_HP = 'RECOVER_HP'
-export const RECOVER_MP = 'RECOVER_MP'
 export const INIT_CHARACTER = 'INIT_CHARACTER'
+export const SET_AWARD = 'SET_AWARD'
 
 export interface InitCharacterAction {
     type: typeof INIT_CHARACTER
     payload: CharacterInitData
+}
+export interface SetAwardAction {
+    type: typeof SET_AWARD
+    payload: AwardData
 }
 export interface UpdateHpAction {
     type: typeof UPDATE_HP
     value: string
 }
 
+export interface UpdateMpAction {
+    type: typeof UPDATE_MP
+    value: string
+}
 
-export type CharacterActionTypes = InitCharacterAction | UpdateHpAction
+export type CharacterActionTypes = InitCharacterAction | UpdateHpAction | SetAwardAction | UpdateMpAction

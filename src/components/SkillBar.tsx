@@ -18,7 +18,8 @@ const mapStateToProps = (state: AppState) => ({
     hp: state.character.hp,
     mp: state.character.mp,
     curHp: state.character.curHp,
-    curMp: state.character.curMp
+    curMp: state.character.curMp,
+    xp: state.character.exp
 })
 
 interface SkillBarProps {
@@ -27,6 +28,7 @@ interface SkillBarProps {
     mp: number
     curHp: number
     curMp: number
+    xp: number
 }
 
 const listItems = [1, 2, 3, 4, 5, 6, 7, 8].map((number) =>
@@ -75,6 +77,9 @@ class SkillBar extends Component<SkillBarProps> {
                 </div>
                 <div className="skill-mp">
                     <div className="mp-bar" style={{ height: `${this.props.curMp / this.props.mp * 100}%` }} />
+                </div>
+                <div className="skill-xp">
+                    <div className="xp-bar" style={{ width: `${this.props.xp * 100}%` }} />
                 </div>
             </div>
         ) : null

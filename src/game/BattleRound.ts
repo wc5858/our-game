@@ -1,18 +1,20 @@
 import * as util from './util'
 import { store } from "../store"
-import { updateHp } from '../store/character/actions'
+import { updateHp, updateMp, setAward } from '../store/character/actions'
 import { Monster, Round } from './types'
-import { monsters } from '../data/monsters'
 
 export default class BattleRound implements Round {
     monsterName: string
     monsterHp: number
     monsterAttack: number
     monsterAttackTime: number
-    callEndBattle: Function
+    callEndBattle: any
     callEndGame: Function
     attack: number
     attackTime: number
+    moneyAward: number
+    gemAward: number
+    xpAward: number
     isEnd: boolean
     constructor(monster: Monster, endBattleCallback: Function, endGameCallback: Function) {
         const character = store.getState().character
@@ -20,9 +22,12 @@ export default class BattleRound implements Round {
         this.attackTime = 1000 / character.attackSpeed
         this.monsterName = monster.name
         // 随机怪物攻击力、血量
-        this.monsterAttack = Math.round(monster.attackRate * character.hp * util.getDrift())
-        this.monsterHp = Math.floor(monster.hpRate * character.attackPower * util.getDrift())
+        this.monsterAttack = util.getDrift(monster.attackRate * character.hp)
+        this.monsterHp = util.getDrift(monster.hpRate * character.attackPower)
         this.monsterAttackTime = 1000 / monster.attackSpeed
+        this.moneyAward = util.getDrift(monster.moneyAward)
+        this.gemAward = util.getDrift(monster.gemAward)
+        this.xpAward = util.getDrift(monster.xpAward * 100) / 100
         this.callEndBattle = endBattleCallback
         this.callEndGame = endGameCallback
         this.isEnd = false
@@ -36,7 +41,29 @@ export default class BattleRound implements Round {
     endRound(damage: number) {
         if (!this.isEnd) {
             util.sendSimpleMessage(`对怪物造成了${damage}伤害，boss被击败了`)
-            this.callEndBattle()
+            util.sendSimpleMessage(`获得${this.moneyAward}金币，获得${this.moneyAward}宝石，增长了${this.xpAward*100}%经验`)
+            const character = store.getState().character
+            let levelUp = Math.floor(character.exp + this.xpAward)
+            if(levelUp>0){
+                util.sendSimpleMessage(`你升到了${character.level + levelUp}级！`)
+                // 血蓝回满
+                store.dispatch(updateHp({
+                    value: character.hp
+                }))
+                store.dispatch(updateMp({
+                    value: character.mp
+                }))
+            }
+            store.dispatch(setAward({
+                level: character.level + levelUp,
+                exp: character.exp + this.xpAward - levelUp,
+                money: character.money + this.moneyAward,
+                gem: character.gem + this.gemAward
+            }))
+            console.log(this.callEndBattle) 
+            if(typeof this.callEndBattle == 'function') {
+                this.callEndBattle()
+            }
             this.isEnd = true
         }
     }

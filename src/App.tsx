@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import './App.css';
 import SkillBar from './components/SkillBar';
 import Board from './components/Board';
+import TopBar from './components/TopBar';
 import CareerBoard from './components/CareerBoard';
 
 import { AppState } from './store';
@@ -44,6 +45,7 @@ class App extends Component<AppProps> {
       <div className="App">
         <Board messages={this.props.board.messages}
           sendMessage={this.props.sendMessage} />
+        <TopBar />
         <CareerBoard />
         <SkillBar />
       </div>

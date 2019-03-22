@@ -2,12 +2,16 @@ import {
   CharacterState,
   CharacterActionTypes,
   INIT_CHARACTER,
-  UPDATE_HP
+  UPDATE_HP,
+  UPDATE_MP,
+  SET_AWARD
 } from './types'
 
 const initialState: CharacterState = {
   name: '',
   avatar: '',
+  career: '',
+  race: '',
   careerID: '',
   raceID: '',
   hp: 100,
@@ -23,7 +27,8 @@ const initialState: CharacterState = {
   mpGrow: 10,
   exp: 0,
   level: 1,
-  money: 0
+  money: 0,
+  gem: 0
 }
 
 export function characterReducer(
@@ -33,9 +38,15 @@ export function characterReducer(
   switch (action.type) {
     case INIT_CHARACTER:
       return Object.assign({}, state, action.payload)
+    case SET_AWARD:
+      return Object.assign({}, state, action.payload)
     case UPDATE_HP:
       return Object.assign({}, state, {
         curHp: action.value
+      })
+    case UPDATE_MP:
+      return Object.assign({}, state, {
+        curMp: action.value
       })
     default:
       return state

@@ -1,6 +1,8 @@
 import RoundSingleton from "./RoundSingleton";
 import races from "../data/races";
 import careers from "../data/careers";
+import { store } from "../store";
+import { initCharacter } from "../store/character/actions";
 
 let roundRunner = RoundSingleton.getInstance()
 
@@ -13,6 +15,20 @@ export default {
         let race = races[options.raceID]
         let career = careers[options.careerID]
         
+        let character = store.getState().character
+
+        store.dispatch(initCharacter({
+            name: '沉睡的朱老板',
+            avatar: race.avatar,
+            career: career.name,
+            race: career.name,
+            careerID: options.careerID,
+            raceID: options.raceID,
+            attackGrow: character.attackGrow + race.attackGrow + career.attackGrow,
+            hpGrow: character.hpGrow + race.hpGrow + career.hpGrow,
+            mpGrow: character.mpGrow + race.mpGrow + career.mpGrow
+        }))
+
         roundRunner.init()
     },
     doSth() {

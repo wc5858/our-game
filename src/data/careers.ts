@@ -1,6 +1,7 @@
 import avatar1 from '../assets/avatar1.jpg'
+import { Career } from '../game/types';
 const data: {
-    [key: string]: any
+    [key: string]: Career
 } = {
     '001': {
         name: '程序员',
@@ -9,7 +10,6 @@ const data: {
 
         },
         attackGrow: 1.5,
-        defensiveGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     },
@@ -20,7 +20,6 @@ const data: {
 
         },
         attackGrow: 1.5,
-        defensiveGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     },
@@ -31,7 +30,6 @@ const data: {
 
         },
         attackGrow: 1.5,
-        defensiveGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     },
@@ -42,7 +40,6 @@ const data: {
 
         },
         attackGrow: 1.5,
-        defensiveGrow: 1,
         hpGrow: 10,
         mpGrow: 10,
     }

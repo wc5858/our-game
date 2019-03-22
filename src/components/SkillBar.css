@@ -123,3 +123,22 @@
     background-size: 34px 112px;
     background-position-y: bottom;
 }
+
+.skill-xp {
+    position: absolute;
+    width: 769px;
+    height: 14px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 4.5px;
+}
+.skill-xp .xp-bar {
+    position: absolute;
+    height: 14px;
+    left: 0;
+    background: url(../assets/fill_xp.png);
+    background-size: 769px 14;
+    background-position-x: left;
+    transition: width 0.5s;
+}

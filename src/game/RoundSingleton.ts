@@ -20,7 +20,8 @@ export default class RoundSingleton {
     private endGame() {
         util.sendSimpleMessage('游戏结束')
     }
-    private goRound() {
+    private goRound = ()=> {
+        // 这里要递归两次以上只能用箭头函数，具体原因尚不清楚
         this.round = new BattleRound(util.getRandomItem(monsters), this.goRound, this.endGame)
         this.round.init()
     }
