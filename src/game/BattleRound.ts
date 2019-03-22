@@ -1,6 +1,6 @@
 import * as util from './util'
 import { store } from "../store"
-import { updateHp, updateMp, setAward } from '../store/character/actions'
+import { updateHp, updateMp, setAward, levelUp } from '../store/character/actions'
 import { Monster, Round } from './types'
 
 export default class BattleRound implements Round {
@@ -41,27 +41,29 @@ export default class BattleRound implements Round {
     endRound(damage: number) {
         if (!this.isEnd) {
             util.sendSimpleMessage(`对怪物造成了${damage}伤害，boss被击败了`)
-            util.sendSimpleMessage(`获得${this.moneyAward}金币，获得${this.moneyAward}宝石，增长了${this.xpAward*100}%经验`)
+            util.sendSimpleMessage(`获得${this.moneyAward}金币，获得${this.moneyAward}宝石，增长了${this.xpAward * 100}%经验`)
             const character = store.getState().character
-            let levelUp = Math.floor(character.exp + this.xpAward)
-            if(levelUp>0){
-                util.sendSimpleMessage(`你升到了${character.level + levelUp}级！`)
+            let levelUpNum = Math.floor(character.exp + this.xpAward)
+            if (levelUpNum > 0) {
+                util.sendSimpleMessage(`你升到了${character.level + levelUpNum}级！`)
                 // 血蓝回满
-                store.dispatch(updateHp({
-                    value: character.hp
-                }))
-                store.dispatch(updateMp({
-                    value: character.mp
+                const newHp = character.attackPower + character.attackGrow * levelUpNum
+                const newMp = character.attackPower + character.attackGrow * levelUpNum
+                store.dispatch(levelUp({
+                    level: character.level + levelUpNum,
+                    curHp: newHp,
+                    curMp: newMp,
+                    attackPower: character.attackPower + character.attackGrow * levelUpNum,
+                    hp: newHp,
+                    mp: newMp
                 }))
             }
             store.dispatch(setAward({
-                level: character.level + levelUp,
-                exp: character.exp + this.xpAward - levelUp,
+                exp: character.exp + this.xpAward - levelUpNum,
                 money: character.money + this.moneyAward,
                 gem: character.gem + this.gemAward
             }))
-            console.log(this.callEndBattle) 
-            if(typeof this.callEndBattle == 'function') {
+            if (typeof this.callEndBattle == 'function') {
                 this.callEndBattle()
             }
             this.isEnd = true

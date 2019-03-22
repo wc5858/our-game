@@ -14,7 +14,6 @@ export default {
     }) {
         let race = races[options.raceID]
         let career = careers[options.careerID]
-        
         let character = store.getState().character
 
         store.dispatch(initCharacter({

@@ -32,3 +32,14 @@ export type Career = {
     mpGrow: number
     skillTree: object
 }
+
+export type Skill = {
+    name: string
+    dsc: string
+    baseDamageRate: number
+    damageUpPerLevel: number
+    maxLevel: number
+    gemNeeds: Array<number>
+    animation: string
+    cooldown: number
+}

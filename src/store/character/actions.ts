@@ -31,3 +31,10 @@ export function updateMp(data: {
     value: data.value
   }
 }
+
+export function levelUp(data: types.LevelUpData) {
+  return {
+    type: types.LEVEL_UP,
+    payload: data
+  }
+}

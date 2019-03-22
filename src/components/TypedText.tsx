@@ -36,7 +36,7 @@ class TypedText extends Component<Props> {
     componentWillUnmount() {
         // Make sure to destroy Typed instance on unmounting
         // to prevent memory leaks
-        this.typed.destroy();
+        // this.typed.destroy();
     }
 
     render() {

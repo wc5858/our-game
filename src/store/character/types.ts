@@ -12,9 +12,17 @@ export interface CharacterInitData {
 
 export interface AwardData {
     exp: number
-    level: number
     money: number
     gem: number
+}
+
+export interface LevelUpData {
+    level: number
+    curHp: number
+    curMp: number
+    attackPower: number
+    hp: number
+    mp: number
 }
 
 export interface CharacterState {
@@ -43,6 +51,7 @@ export interface CharacterState {
 
 export const UPDATE_HP = 'UPDATE_HP'
 export const UPDATE_MP = 'UPDATE_MP'
+export const LEVEL_UP = 'LEVEL_UP'
 export const INIT_CHARACTER = 'INIT_CHARACTER'
 export const SET_AWARD = 'SET_AWARD'
 
@@ -64,4 +73,8 @@ export interface UpdateMpAction {
     value: string
 }
 
-export type CharacterActionTypes = InitCharacterAction | UpdateHpAction | SetAwardAction | UpdateMpAction
+export interface LevelUpAction {
+    type: typeof LEVEL_UP
+    payload: LevelUpData
+}
+export type CharacterActionTypes = InitCharacterAction | UpdateHpAction | SetAwardAction | UpdateMpAction | LevelUpAction
