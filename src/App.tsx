@@ -13,23 +13,22 @@ import { CharacterState } from './store/character/types';
 
 import { sendMessage } from './store/board/actions';
 import { initCharacter } from './store/character/actions';
-import { initGame } from './store/ui/actions';
+import CharacterWindow from './components/CharacterWindow';
 
 const mapStateToProps = (state: AppState) => ({
-  showSkill: state.ui.showSkill,
+  showBoards: state.ui.showBoards,
   showCareer: state.ui.showCareer,
-  board: state.board,
-  character: state.character
+  showCharacter: state.ui.showCharacter,
+  board: state.board
 })
 
 interface AppProps {
-  showSkill: boolean
+  showBoards: boolean
   showCareer: boolean
+  showCharacter: boolean
   sendMessage: typeof sendMessage
   initCharacter: typeof initCharacter
-  initGame: typeof initGame
   board: BoardState
-  character: CharacterState
 }
 
 class App extends Component<AppProps> {
@@ -49,9 +48,10 @@ class App extends Component<AppProps> {
       <div className="App">
         <Board messages={this.props.board.messages}
           sendMessage={this.props.sendMessage} />
-        {this.props.showSkill ? <TopBar /> : null}
+        {this.props.showBoards ? <TopBar /> : null}
         {this.props.showCareer ? <CareerBoard /> : null}
-        {this.props.showSkill ? <SkillBar /> : null}
+        {this.props.showCharacter ? <CharacterWindow /> : null}
+        {this.props.showBoards ? <SkillBar /> : null}
       </div>
     );
   }
@@ -59,5 +59,5 @@ class App extends Component<AppProps> {
 
 export default connect(
   mapStateToProps,
-  { sendMessage, initCharacter, initGame }
+  { sendMessage, initCharacter }
 )(App)

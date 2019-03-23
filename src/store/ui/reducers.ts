@@ -1,12 +1,16 @@
 import {
     UIState,
     UIActionTypes,
-    START_GAME
+    START_GAME,
+    SHOW_CHARACTER
 } from './types'
 
 const initialState: UIState = {
-    showSkill: false,
-    showCareer: true
+    showBoards: false,
+    showCareer: true,
+    showCharacter: false,
+    showShop: false,
+    showLearnSkill: false,
 }
 
 export function uiReducer(
@@ -16,8 +20,12 @@ export function uiReducer(
     switch (action.type) {
         case START_GAME:
             return Object.assign({}, state, {
-                showSkill: true,
+                showBoards: true,
                 showCareer: false
+            })
+        case SHOW_CHARACTER:
+            return Object.assign({}, state, {
+                showCharacter: true
             })
         default:
             return state

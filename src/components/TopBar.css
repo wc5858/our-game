@@ -54,3 +54,10 @@
     left: 495px;
     zoom: 0.8;
 }
+.btn-character {
+    position: absolute;
+    top: 9.5px;
+    left: 792px;
+    width: 40px;
+    height: 40px;
+}

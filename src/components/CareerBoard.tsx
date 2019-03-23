@@ -18,73 +18,73 @@ const mapStateToProps = (state: AppState) => ({
 })
 
 interface CareerBoardProps {
-  sendMessage: typeof sendMessage
-  startGame: typeof startGame
+    sendMessage: typeof sendMessage
+    startGame: typeof startGame
 }
 
 function getList(type: string, dataArr: [string, { name: string; avatar: string }][], cb: Function, curSelected: string) {
-  return dataArr.map(([key, data], idx) =>
-    <div className={`${type}-slot career-slot-${idx} ${key == curSelected ? 'career-selected' : ''}`}
-      data-name={data.name}
-      onClick={() => cb(key)} key={idx}>
-      <img src={data.avatar} />
-    </div>
-  )
+    return dataArr.map(([key, data], idx) =>
+        <div className={`${type}-slot career-slot-${idx} ${key == curSelected ? 'career-selected' : ''}`}
+            data-name={data.name}
+            onClick={() => cb(key)} key={idx}>
+            <img src={data.avatar} />
+        </div>
+    )
 }
 
 class CareerBoard extends Component<CareerBoardProps> {
-  state: {
-    raceSelected: string
-    careerSelected: string
-  }
-
-  constructor(props: object) {
-    super(props as CareerBoardProps)
-    this.state = {
-      raceSelected: Object.entries(races)[0][0],
-      careerSelected: Object.entries(careers)[0][0],
+    state: {
+        raceSelected: string
+        careerSelected: string
     }
-  }
 
-  selectCareer = (key: string) => {
-    this.setState({
-      careerSelected: key
-    })
-  }
+    constructor(props: object) {
+        super(props as CareerBoardProps)
+        this.state = {
+            raceSelected: Object.entries(races)[0][0],
+            careerSelected: Object.entries(careers)[0][0],
+        }
+    }
 
-  selectRace = (key: string) => {
-    this.setState({
-      raceSelected: key
-    })
-  }
+    selectCareer = (key: string) => {
+        this.setState({
+            careerSelected: key
+        })
+    }
 
-  playGame = () => {
-    this.props.startGame()
-    this.props.sendMessage({
-      text: '游戏开始！'
-    })
-    game.init({
-      raceID: this.state.raceSelected,
-      careerID: this.state.careerSelected
-    })
-  }
+    selectRace = (key: string) => {
+        this.setState({
+            raceSelected: key
+        })
+    }
 
-  render() {
-    return (
-      <div>
-        <div className="career-box">
-          {getList('race', raceData, this.selectRace, this.state.raceSelected)}
-          {getList('career', careerData, this.selectCareer, this.state.careerSelected)}
-        </div>
-        <div className="career-btn">
-          <ButtonPlay btnClick={this.playGame} />
-        </div>
-      </div>
-    )
-  }
+    playGame = () => {
+        this.props.startGame()
+        this.props.sendMessage({
+            text: '游戏开始！'
+        })
+        game.init({
+            raceID: this.state.raceSelected,
+            careerID: this.state.careerSelected
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="career-box">
+                    {getList('race', raceData, this.selectRace, this.state.raceSelected)}
+                    {getList('career', careerData, this.selectCareer, this.state.careerSelected)}
+                </div>
+                <div className="career-btn">
+                    <ButtonPlay btnClick={this.playGame} />
+                </div>
+            </div>
+        )
+    }
 }
 
 export default connect(
-  mapStateToProps,
-  { startGame, sendMessage }
+    mapStateToProps,
+    { startGame, sendMessage }
 )(CareerBoard);

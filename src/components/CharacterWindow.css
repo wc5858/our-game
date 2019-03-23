@@ -1,0 +1,12 @@
+.character-window {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 900px;
+    height: 600px;
+    background: url(../assets/charcater_window.png) center / contain no-repeat;
+    z-index: 1001;
+    transform: translateY(-50%);
+}

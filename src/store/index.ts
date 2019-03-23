@@ -5,14 +5,14 @@ import { createStore, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 const rootReducer = combineReducers({
-  board: boardReducer,
-  character: characterReducer,
-  ui: uiReducer
+    board: boardReducer,
+    character: characterReducer,
+    ui: uiReducer
 })
 
 export type AppState = ReturnType<typeof rootReducer>
 
 export const store = createStore(
-  rootReducer,
-  composeWithDevTools()
+    rootReducer,
+    composeWithDevTools()
 )
