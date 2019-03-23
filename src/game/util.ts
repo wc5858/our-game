@@ -16,6 +16,6 @@ export const sendSimpleMessage = function (text: string) {
     }))
 }
 
-export const emphasize = function (str: string) {
-    return `<span style="color:red">${str}</span>`
+export const emphasize = function (str: string, color?: string) {
+    return `<span style="color:${color||'red'}">${str}</span>`
 }

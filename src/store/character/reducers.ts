@@ -32,7 +32,7 @@ const initialState: CharacterState = {
     level: 1,
     money: 0,
     gem: 0,
-    hpPotionNum: 1,
+    hpPotionNum: 10,
     mpPotionNum: 10
 }
 

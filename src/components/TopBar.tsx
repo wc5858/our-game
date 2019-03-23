@@ -4,10 +4,8 @@ import './TopBar.css';
 
 import { connect } from "react-redux";
 import { AppState } from '../store';
-import { initCharacter } from '../store/character/actions';
-import { sendMessage } from '../store/board/actions';
-import { startGame } from '../store/ui/actions';
-import { race } from 'q';
+import ButtonPlay from './ButtonPlay';
+import game from '../game';
 
 const mapStateToProps = (state: AppState) => ({
   avatar: state.character.avatar,
@@ -59,6 +57,9 @@ class TopBar extends Component<TopBarProps> {
           <span>{this.props.attack}</span>
           <span>{this.props.gem}</span>
         </div>
+        <div className="topbar-btn">
+          <ButtonPlay btnClick={()=>game.play()} />
+          </div>
       </div>
     )
   }

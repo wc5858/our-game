@@ -74,7 +74,6 @@ export default class BattleRound implements Round {
             store.dispatch(updateHp({
                 value: 0
             }))
-            util.sendSimpleMessage('你屎了')
             this.callEndGame()
             this.isEnd = true
         }

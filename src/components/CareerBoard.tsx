@@ -76,7 +76,9 @@ class CareerBoard extends Component<CareerBoardProps> {
           {getList('race', raceData, this.selectRace, this.state.raceSelected)}
           {getList('career', careerData, this.selectCareer, this.state.careerSelected)}
         </div>
-        <ButtonPlay btnClick={this.playGame} />
+        <div className="career-btn">
+          <ButtonPlay btnClick={this.playGame} />
+        </div>
       </div>
     )
   }

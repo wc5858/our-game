@@ -1,11 +1,6 @@
 .button-play {
-    position: absolute;
-    width: 254px;
-    height: 100px;
-    left: 0;
-    right: 0;
-    top: calc(50% + 222px);
-    margin: 0 auto;
+    height: 100%;
+    width: 100%;
     background: url(../assets/play.png) no-repeat;
     background-position: center 8.5px;
     background-size: 241px 88px;
