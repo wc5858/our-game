@@ -146,3 +146,27 @@
     background-position-x: left;
     transition: width 0.5s;
 }
+.item-num {
+    position: absolute;
+    font-size: 12px;
+    line-height: 1;
+    color: #a69785;
+    top: 0;
+    right: 2px;
+}
+.cooldown-mask {
+    position: absolute;
+    background: rgba(0, 0, 0,0.66);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+}
+@keyframes cooldown {
+    from {
+        height: 100%;
+    }
+    to {
+        height: 0;
+    }
+}

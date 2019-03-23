@@ -7,7 +7,12 @@ export class CooldownComputer {
         this.cdTime = cdTime
         this.cbHook = cbHook ? cbHook : null
     }
+    getStatusDirectly () {
+        // 不触发冷却直接获取状态
+        return this.usable
+    }
     getStatus() {
+        // 触发冷却并获取状态
         if (!this.usable) {
             return false
         }

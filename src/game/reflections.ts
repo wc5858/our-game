@@ -1,4 +1,4 @@
-import { updateHp, updateMp } from "../store/character/actions";
+import { updateHp, updateMp, setHpPotion, setMpPotion } from "../store/character/actions";
 import { HP_POTION, MP_POTION } from "./types";
 
 export const potionReflection: {
@@ -6,19 +6,25 @@ export const potionReflection: {
         max: string
         cur: string
         name: string
-        action: Function
+        num: string
+        action1: Function
+        action2: Function
     }
 } = {
     [HP_POTION]: {
         max: 'hp',
         cur: 'curHp',
         name: '血',
-        action: updateHp
+        num: 'hpPotionNum',
+        action1: updateHp,
+        action2: setHpPotion
     },
     [MP_POTION]: {
         max: 'mp',
         cur: 'curMp',
         name: '蓝',
-        action: updateMp
+        num: 'mpPotionNum',
+        action1: updateMp,
+        action2: setMpPotion
     }
 }

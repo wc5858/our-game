@@ -38,3 +38,21 @@ export function levelUp(data: types.LevelUpData) {
     payload: data
   }
 }
+
+export function setHpPotion(data: {
+  value: number
+}) {
+  return {
+    type: types.SET_HP_POTION,
+    value: data.value
+  }
+}
+
+export function setMpPotion(data: {
+  value: number
+}) {
+  return {
+    type: types.SET_MP_POTION,
+    value: data.value
+  }
+}

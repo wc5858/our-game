@@ -5,7 +5,9 @@ import {
     UPDATE_HP,
     UPDATE_MP,
     SET_AWARD,
-    LEVEL_UP
+    LEVEL_UP,
+    SET_HP_POTION,
+    SET_MP_POTION
 } from './types'
 
 const initialState: CharacterState = {
@@ -29,7 +31,9 @@ const initialState: CharacterState = {
     exp: 0,
     level: 1,
     money: 0,
-    gem: 0
+    gem: 0,
+    hpPotionNum: 1,
+    mpPotionNum: 10
 }
 
 export function characterReducer(
@@ -48,6 +52,14 @@ export function characterReducer(
         case UPDATE_MP:
             return Object.assign({}, state, {
                 curMp: action.value
+            })
+        case SET_HP_POTION:
+            return Object.assign({}, state, {
+                hpPotionNum: action.value
+            })
+        case SET_MP_POTION:
+            return Object.assign({}, state, {
+                mpPotionNum: action.value
             })
         default:
             return state

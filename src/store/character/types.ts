@@ -48,6 +48,8 @@ export interface CharacterState {
     level: number
     money: number
     gem: number
+    hpPotionNum: number
+    mpPotionNum: number
 }
 
 export const UPDATE_HP = 'UPDATE_HP'
@@ -55,6 +57,8 @@ export const UPDATE_MP = 'UPDATE_MP'
 export const LEVEL_UP = 'LEVEL_UP'
 export const INIT_CHARACTER = 'INIT_CHARACTER'
 export const SET_AWARD = 'SET_AWARD'
+export const SET_HP_POTION = 'SET_HP_POTION'
+export const SET_MP_POTION = 'SET_MP_POTION'
 
 export interface InitCharacterAction {
     type: typeof INIT_CHARACTER
@@ -66,16 +70,28 @@ export interface SetAwardAction {
 }
 export interface UpdateHpAction {
     type: typeof UPDATE_HP
-    value: string
+    value: number
 }
 
 export interface UpdateMpAction {
     type: typeof UPDATE_MP
-    value: string
+    value: number
+}
+
+export interface SetMpPotionAction {
+    type: typeof SET_MP_POTION
+    value: number
+}
+
+export interface SetHpPotionAction {
+    type: typeof SET_HP_POTION
+    value: number
 }
 
 export interface LevelUpAction {
     type: typeof LEVEL_UP
     payload: LevelUpData
 }
-export type CharacterActionTypes = InitCharacterAction | UpdateHpAction | SetAwardAction | UpdateMpAction | LevelUpAction
+
+export type CharacterActionTypes = InitCharacterAction | UpdateHpAction |
+    SetAwardAction | UpdateMpAction | LevelUpAction | SetHpPotionAction | SetMpPotionAction
