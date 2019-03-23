@@ -10,7 +10,6 @@ import { startGame } from '../store/ui/actions';
 import { race } from 'q';
 
 const mapStateToProps = (state: AppState) => ({
-  show: state.ui.showSkill,
   avatar: state.character.avatar,
   race: state.character.race,
   career: state.character.career,
@@ -22,7 +21,6 @@ const mapStateToProps = (state: AppState) => ({
 })
 
 interface TopBarProps {
-  show: boolean
   avatar: string
   race: string
   career: string
@@ -50,7 +48,7 @@ class TopBar extends Component<TopBarProps> {
 
   render() {
 
-    return this.props.show ? (
+    return (
       <div className="topbar-box">
         <div className="topbar-avatar">
           <img src={this.props.avatar} />
@@ -62,7 +60,7 @@ class TopBar extends Component<TopBarProps> {
           <span>{this.props.gem}</span>
         </div>
       </div>
-    ) : null
+    )
   }
 }
 

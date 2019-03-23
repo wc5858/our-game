@@ -15,11 +15,9 @@ const raceData = Object.entries(races)
 const careerData = Object.entries(careers)
 
 const mapStateToProps = (state: AppState) => ({
-  show: state.ui.showCareer,
 })
 
 interface CareerBoardProps {
-  show: boolean
   sendMessage: typeof sendMessage
   startGame: typeof startGame
 }
@@ -72,7 +70,7 @@ class CareerBoard extends Component<CareerBoardProps> {
   }
 
   render() {
-    return this.props.show ? (
+    return (
       <div>
         <div className="career-box">
           {getList('race', raceData, this.selectRace, this.state.raceSelected)}
@@ -80,7 +78,7 @@ class CareerBoard extends Component<CareerBoardProps> {
         </div>
         <ButtonPlay btnClick={this.playGame} />
       </div>
-    ) : null
+    )
   }
 }
 

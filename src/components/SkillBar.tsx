@@ -11,7 +11,6 @@ import game from '../game'
 import { MP_POTION, HP_POTION } from '../game/types';
 
 const mapStateToProps = (state: AppState) => ({
-    show: state.ui.showSkill,
     hp: state.character.hp,
     mp: state.character.mp,
     curHp: state.character.curHp,
@@ -20,7 +19,6 @@ const mapStateToProps = (state: AppState) => ({
 })
 
 interface SkillBarProps {
-    show: boolean
     hp: number
     mp: number
     curHp: number
@@ -63,27 +61,27 @@ class SkillBar extends Component<SkillBarProps> {
 
     render() {
 
-        return this.props.show ? (
-            <div className="skill-box">
-                <div className="skill-slot skill-slot-sm skill-slot-q" onClick={()=>game.usePotion(HP_POTION)}>
-                    <img src={ab2_POTION_Burning} />
-                </div>
-                <div className="skill-slot skill-slot-sm skill-slot-e" onClick={()=>game.usePotion(MP_POTION)}>
-                    <img src={ab2_POTION_Blue} />
-                </div>
-                {listItems}
-                <div className="skill-hp">
-                    <div className="hp-bar" style={{ height: `${this.props.curHp / this.props.hp * 100}%` }} />
-                </div>
-                <div className="skill-mp">
-                    <div className="mp-bar" style={{ height: `${this.props.curMp / this.props.mp * 100}%` }} />
-                </div>
-                <div className="skill-xp">
-                    <div className="xp-bar" style={{ width: `${this.props.xp * 100}%` }} />
-                </div>
-                <div className="skill-shortcuts"></div>
+        return (
+        <div className="skill-box">
+            <div className="skill-slot skill-slot-sm skill-slot-q" onClick={() => game.usePotion(HP_POTION)}>
+                <img src={ab2_POTION_Burning} />
             </div>
-        ) : null
+            <div className="skill-slot skill-slot-sm skill-slot-e" onClick={() => game.usePotion(MP_POTION)}>
+                <img src={ab2_POTION_Blue} />
+            </div>
+            {listItems}
+            <div className="skill-hp">
+                <div className="hp-bar" style={{ height: `${this.props.curHp / this.props.hp * 100}%` }} />
+            </div>
+            <div className="skill-mp">
+                <div className="mp-bar" style={{ height: `${this.props.curMp / this.props.mp * 100}%` }} />
+            </div>
+            <div className="skill-xp">
+                <div className="xp-bar" style={{ width: `${this.props.xp * 100}%` }} />
+            </div>
+            <div className="skill-shortcuts"></div>
+        </div>
+        )
     }
 }
 
