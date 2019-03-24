@@ -11,20 +11,20 @@ export default class EquipmentFactory {
         attributes.push({
             type: 'attackPower',
             dsc: '攻击力+',
-            value: Math.round(Math.random() * 5) + 5
+            value: Math.ceil(Math.random() * 5) + 5
         })
         if(rare == RARE_S || rare == RARE_SS) {
             attributes.push({
                 type: 'mp',
                 dsc: '法力值+',
-                value: Math.round(Math.random() * 10) + 10
+                value: Math.ceil(Math.random() * 10) + 10
             })
         }
         if(rare == RARE_SS) {
             attributes.push({
                 type: 'hp',
                 dsc: '生命值+',
-                value: Math.round(Math.random() * 10) + 10
+                value: Math.ceil(Math.random() * 10) + 10
             })
         }
         return attributes

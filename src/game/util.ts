@@ -12,7 +12,7 @@ export const getRandomItem = function (items: object) {
 }
 
 export const getDrift = function (val: number) {
-    return Math.round((Math.random() * 0.4 + 0.8) * val)
+    return Math.ceil((Math.random() * 0.4 + 0.8) * val)
 }
 
 export const sendSimpleMessage = function (text: string) {

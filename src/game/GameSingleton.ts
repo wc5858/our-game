@@ -10,7 +10,9 @@ import { Round } from "./types";
 import monsters from '../data/monsters';
 import BattleRound from './BattleRound';
 import EquipmentFactory from "./EquipmentFactory";
-import { addEquipment, equipEquipment } from "../store/bag/actions";
+import { addEquipment, updateEquipment as updateEquipment } from "../store/bag/actions";
+import { Equipment } from "../store/bag/types";
+import { CharacterState } from "../store/character/types";
 
 export default class GameSingleton {
     private static instance: GameSingleton
@@ -95,8 +97,49 @@ export default class GameSingleton {
         }
         this.inBattle = true
         // 每次战斗遭遇1-5次怪物
-        let monsterNum = Math.round(Math.random() * 5)
+        let monsterNum = Math.ceil(Math.random() * 5)
         this.battle(monsterNum)
+    }
+    private changeEquipment(type: string, character: CharacterState, val: number) {
+        if (type == 'hp') {
+            const percent = character.curHp / character.hp
+            character.hp += val
+            character.curHp = character.hp * percent
+        } else if (type == 'mp') {
+            const percent = character.curMp / character.mp
+            character.mp += val
+            character.curMp = character.mp * percent
+        } else {
+            character[type] += val
+        }
+    }
+    enhance(eq: Equipment) {
+        let character = store.getState().character
+        const need = 100 * (eq.enhancedLevel + 1)
+        if (character.gem < need) {
+            alert('宝石不足！')
+            return
+        }
+        character.gem -= need
+        if (Math.random() < 0.5) {
+            const data = store.getState().bag[eq.part]
+            for (let i of data) {
+                if (i.id == eq.id) {
+                    i.enhancedLevel++
+                    for (let j of eq.attributes) {
+                        const val = Math.ceil(j.value * 0.1)
+                        j.value += val
+                        this.changeEquipment(j.type, character, val)
+                    }
+                    break
+                }
+            }
+            store.dispatch(updateEquipment(eq.part, data))
+            alert('强化成功！')
+        } else {
+            alert('强化失败！继续努力吧')
+        }
+        store.dispatch(initCharacter(character))
     }
     wear(type: string, equiped: number, id: number) {
         const data = store.getState().bag[type]
@@ -113,37 +156,17 @@ export default class GameSingleton {
             }
         }
         let character = store.getState().character
-        if(takenOff) {
-            for(let i of takenOff.attributes) {
-                if(i.type == 'hp') {
-                    let percent = character.curHp / character.hp
-                    character.hp -= i.value
-                    character.curHp = character.hp * percent
-                } else if (i.type == 'mp') {
-                    let percent = character.curMp / character.mp
-                    character.mp -= i.value
-                    character.curMp = character.mp * percent
-                } else {
-                    character[i.type] -= i.value
-                }
+        if (takenOff) {
+            for (let i of takenOff.attributes) {
+                this.changeEquipment(i.type, character, i.value)
             }
         }
-        if(takenOn) {
-            for(let i of takenOn.attributes) {
-                if(i.type == 'hp') {
-                    let percent = character.curHp / character.hp
-                    character.hp += i.value
-                    character.curHp = character.hp * percent
-                } else if (i.type == 'mp') {
-                    let percent = character.curMp / character.mp
-                    character.mp += i.value
-                    character.curMp = character.mp * percent
-                } else {
-                    character[i.type] += i.value
-                }
+        if (takenOn) {
+            for (let i of takenOn.attributes) {
+                this.changeEquipment(i.type, character, -i.value)
             }
         }
-        store.dispatch(equipEquipment(type, data))
+        store.dispatch(updateEquipment(type, data))
         store.dispatch(initCharacter(character))
     }
     usePotion(key: string, cbHook?: Function) {

@@ -21,7 +21,6 @@ class ItemIcon extends Component<ItemIconProps> {
                     {this.props.item.attributes.map((i, idx) => <div >{i.dsc + i.value}</div>)}
                 </div>
             </div>
-
         )
     }
 }

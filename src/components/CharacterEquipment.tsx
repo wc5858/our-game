@@ -15,6 +15,7 @@ interface CharacterEquipmentProps {
     type: string
     equiped: number
     bag: BagState
+    changeEnhancing: Function
 }
 
 class CharacterEquipment extends Component<CharacterEquipmentProps> {
@@ -28,6 +29,13 @@ class CharacterEquipment extends Component<CharacterEquipmentProps> {
         }
     }
 
+    enhance = () => {
+        const equiped = this.props.bag[this.props.type].filter(i => i.equiped == this.props.equiped)
+        if (equiped.length > 0) {
+            this.props.changeEnhancing(equiped[0])
+        }
+    }
+
     getIcon = () => {
         const equiped = this.props.bag[this.props.type].filter(i => i.equiped == this.props.equiped)
         return equiped.length > 0 ? <ItemIcon item={equiped[0]} /> : null
@@ -36,7 +44,7 @@ class CharacterEquipment extends Component<CharacterEquipmentProps> {
     getMore = () => {
         const data = this.props.bag[this.props.type]
         return (<div className="equipment-bag">
-            {data.length > 0 ? data.map((i,idx) =>
+            {data.length > 0 ? data.map((i, idx) =>
                 <div onClick={() => game.wear(this.props.type, this.props.equiped, i.id)} key={idx}
                 ><ItemIcon item={i} /></div>) : '空'}
         </div>)
@@ -47,7 +55,7 @@ class CharacterEquipment extends Component<CharacterEquipmentProps> {
             <div className={`character-equipment equipment-${this.props.type}-${this.props.equiped}`}
             >
                 {this.getIcon()}
-                <div className="equipment-enhance">强化</div>
+                <div className="equipment-enhance" onClick={() => this.enhance()}>强化</div>
                 <div className="equipment-change" onClick={() => this.setState({ showMore: !this.state.showMore })}>更换</div>
                 {this.state.showMore ? this.getMore() : null}
             </div>

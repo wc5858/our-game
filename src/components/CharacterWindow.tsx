@@ -7,6 +7,8 @@ import { closeCharacter } from '../store/ui/actions';
 import CharacterEquipment from './CharacterEquipment';
 import { parts } from '../game/types';
 import { CharacterState } from '../store/character/types';
+import EnhanceWindow from './EnhanceWindow';
+import { Equipment } from '../store/bag/types';
 
 const mapStateToProps = (state: AppState) => ({
     character: state.character
@@ -18,9 +20,23 @@ interface CharacterWindowProps {
 }
 
 class CharacterWindow extends Component<CharacterWindowProps> {
-
+    state: {
+        showEnhance: false
+        eqEnhancing: Equipment | null
+    }
     constructor(props: object) {
         super(props as CharacterWindowProps)
+        this.state = {
+            showEnhance: false,
+            eqEnhancing: null
+        }
+    }
+
+    changeEnhancing = (eq: Equipment) => {
+        this.setState({
+            showEnhance: true,
+            eqEnhancing: eq
+        })
     }
 
     render() {
@@ -32,9 +48,9 @@ class CharacterWindow extends Component<CharacterWindowProps> {
                     <div className="character-info">{`${this.props.character.name}`}</div>
                     <div className="character-close" onClick={() => this.props.closeCharacter()}></div>
                     {parts.map(i =>
-                        <CharacterEquipment type={i} equiped={1} />)}
-                    <CharacterEquipment type="ring" equiped={2} />
-                    <CharacterEquipment type="rune" equiped={2} />
+                        <CharacterEquipment type={i} equiped={1} changeEnhancing={this.changeEnhancing} />)}
+                    <CharacterEquipment type="ring" equiped={2} changeEnhancing={this.changeEnhancing}/>
+                    <CharacterEquipment type="rune" equiped={2} changeEnhancing={this.changeEnhancing}/>
                     <div className="character-data">
                         <div><div>血量</div><div>{this.props.character.hp}</div></div>
                         <div><div>蓝量</div><div>{this.props.character.mp}</div></div>
@@ -44,6 +60,7 @@ class CharacterWindow extends Component<CharacterWindowProps> {
                         <div><div>血量成长</div><div>{this.props.character.hpGrow}</div></div>
                         <div><div>蓝量成长</div><div>{this.props.character.mpGrow}</div></div>
                     </div>
+                    {this.state.showEnhance && this.state.eqEnhancing ? <EnhanceWindow eq={this.state.eqEnhancing} /> : null}
                 </div>
             </div>
         )

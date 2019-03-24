@@ -8,7 +8,7 @@ export function addEquipment(equipment: Equipment) {
     }
 }
 
-export function equipEquipment(type:string, equipments: Equipment[]) {
+export function updateEquipment(type:string, equipments: Equipment[]) {
     return {
         type: EQUIP_EQUIPMENT,
         eqType: type,
