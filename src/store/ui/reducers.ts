@@ -2,7 +2,8 @@ import {
     UIState,
     UIActionTypes,
     START_GAME,
-    SHOW_CHARACTER
+    SHOW_CHARACTER,
+    CLOSE_CHARACTER
 } from './types'
 
 const initialState: UIState = {
@@ -26,6 +27,10 @@ export function uiReducer(
         case SHOW_CHARACTER:
             return Object.assign({}, state, {
                 showCharacter: true
+            })
+        case CLOSE_CHARACTER:
+            return Object.assign({}, state, {
+                showCharacter: false
             })
         default:
             return state

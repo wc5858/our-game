@@ -2,3 +2,35 @@
     text-align: center;
     user-select:none;
 }
+.screen-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1000;
+}
+
+.icon-eq {
+    margin: 0 2px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid;
+}
+
+.icon-eq-purple {
+    border-color: purple;
+}
+.icon-eq-blue {
+    border-color: blue;
+}
+.icon-eq-orange {
+    border-color: orange;
+}
+.typed-line > span{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

@@ -9,7 +9,6 @@ import CareerBoard from './components/CareerBoard';
 import { AppState } from './store';
 
 import { BoardState } from './store/board/types';
-import { CharacterState } from './store/character/types';
 
 import { sendMessage } from './store/board/actions';
 import { initCharacter } from './store/character/actions';

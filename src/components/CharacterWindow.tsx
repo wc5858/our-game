@@ -4,6 +4,7 @@ import './CharacterWindow.css';
 import { connect } from "react-redux";
 import { AppState } from '../store';
 import game from '../game';
+import { closeCharacter } from '../store/ui/actions';
 
 const mapStateToProps = (state: AppState) => ({
     avatar: state.character.avatar,
@@ -25,6 +26,7 @@ interface CharacterWindowProps {
     money: number
     attack: number
     gem: number
+    closeCharacter: typeof closeCharacter
 }
 
 class CharacterWindow extends Component<CharacterWindowProps> {
@@ -35,8 +37,13 @@ class CharacterWindow extends Component<CharacterWindowProps> {
 
     render() {
         return (
-            <div className="character-window">
-
+            <div>
+                <div className="screen-mask"></div>
+                <div className="character-window">
+                    <div className="character-avatar"><img src={this.props.avatar} /></div>
+                    <div className="character-info">{`${this.props.name}`}</div>
+                    <div className="character-close" onClick={() => this.props.closeCharacter()}></div>
+                </div>
             </div>
         )
     }
@@ -44,5 +51,5 @@ class CharacterWindow extends Component<CharacterWindowProps> {
 
 export default connect(
     mapStateToProps,
-    {}
+    { closeCharacter }
 )(CharacterWindow);

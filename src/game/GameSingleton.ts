@@ -2,22 +2,26 @@ import races from "../data/races";
 import careers from "../data/careers";
 import { store } from "../store";
 import { initCharacter } from "../store/character/actions";
-import { sendSimpleMessage, getRandomItem, emphasize } from "./util";
+import { sendSimpleMessage, getRandomItem, emphasize, renderEquipment } from "./util";
 import { CooldownComputer } from "./CooldownComputer";
 import { POTION_COOLDOWN } from "../data/consts";
 import { potionReflection } from "./reflections";
 import { Round } from "./types";
 import monsters from '../data/monsters';
 import BattleRound from './BattleRound';
+import EquipmentFactory from "./EquipmentFactory";
+import { addEquipment } from "../store/bag/actions";
 
 export default class GameSingleton {
-    private static instance: GameSingleton;
+    private static instance: GameSingleton
+    private equipmentFactory: EquipmentFactory = new EquipmentFactory()
     private round: Round | null = null
     private coolDownMap = new Map<string, CooldownComputer>()
     private constructor() {
         // GameSingleton
     }
     private isDead = false
+    private inBattle = false
     public static getInstance() {
         if (!GameSingleton.instance) {
             GameSingleton.instance = new GameSingleton();
@@ -56,11 +60,18 @@ export default class GameSingleton {
         // this.roundRunner.init()
     }
     private endBattle() {
+        this.inBattle = false
         sendSimpleMessage(`战斗结束`)
+        if (Math.random() < 0.8) {
+            let eq = this.equipmentFactory.getEquipment()
+            sendSimpleMessage(`获得装备${renderEquipment(eq)}`)
+            store.dispatch(addEquipment(eq))
+        }
         sendSimpleMessage(`稍事休整后请点击上方PLAY按钮进入下一轮战斗`)
     }
     private endGame = () => {
         this.isDead = true
+        this.inBattle = false
         sendSimpleMessage(emphasize('你屎了'))
         sendSimpleMessage(`游戏结束，少侠请按F5重新来过吧`)
     }
@@ -74,16 +85,21 @@ export default class GameSingleton {
         }
     }
     play() {
-        if(this.isDead) {
+        if (this.isDead) {
             sendSimpleMessage(emphasize(`你已经是屎人一个了！F5重新来过吧！`))
             return
         }
+        if (this.inBattle) {
+            sendSimpleMessage(emphasize(`你已经在战斗中了！`))
+            return
+        }
+        this.inBattle = true
         // 每次战斗遭遇1-5次怪物
         let monsterNum = Math.round(Math.random() * 5)
         this.battle(monsterNum)
     }
     usePotion(key: string, cbHook?: Function) {
-        if(this.isDead) {
+        if (this.isDead) {
             sendSimpleMessage(emphasize(`你已经是屎人一个了！木的放技能了`))
             return
         }

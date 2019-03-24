@@ -46,3 +46,19 @@ export type Skill = {
 
 export const HP_POTION = 'HP_POTION'
 export const MP_POTION = 'MP_POTION'
+export const RARE_A = '稀有'
+export const RARE_S = '史诗'
+export const RARE_SS = '传说'
+export const WEAPON = 'weapon'
+
+export const parts = ['head', 'neck', 'shoulder', 'body', 'belt', 'bracers', WEAPON, 'shield', 'hands', 'foot', 'ring', 'rune']
+export const weaponTypes = ['sword', 'kinfe']
+
+export const rarity = [RARE_A, RARE_S, RARE_SS]
+export const rarityColor: {
+    [key: string]: string
+} = {
+    [RARE_A]: 'blue',
+    [RARE_S]: 'purple',
+    [RARE_SS]: 'orangle',
+}
