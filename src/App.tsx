@@ -13,11 +13,13 @@ import { BoardState } from './store/board/types';
 import { sendMessage } from './store/board/actions';
 import { initCharacter } from './store/character/actions';
 import CharacterWindow from './components/CharacterWindow';
+import ShopWindow from './components/ShopWindow';
 
 const mapStateToProps = (state: AppState) => ({
   showBoards: state.ui.showBoards,
   showCareer: state.ui.showCareer,
   showCharacter: state.ui.showCharacter,
+  showShop: state.ui.showShop,
   board: state.board
 })
 
@@ -25,6 +27,7 @@ interface AppProps {
   showBoards: boolean
   showCareer: boolean
   showCharacter: boolean
+  showShop: boolean
   sendMessage: typeof sendMessage
   initCharacter: typeof initCharacter
   board: BoardState
@@ -50,6 +53,7 @@ class App extends Component<AppProps> {
         {this.props.showBoards ? <TopBar /> : null}
         {this.props.showCareer ? <CareerBoard /> : null}
         {this.props.showCharacter ? <CharacterWindow /> : null}
+        {this.props.showShop ? <ShopWindow /> : null}
         {this.props.showBoards ? <SkillBar /> : null}
       </div>
     );

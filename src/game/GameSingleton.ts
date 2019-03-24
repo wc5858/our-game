@@ -2,11 +2,11 @@ import races from "../data/races";
 import careers from "../data/careers";
 import { store } from "../store";
 import { initCharacter } from "../store/character/actions";
-import { sendSimpleMessage, getRandomItem, emphasize, renderEquipment } from "./util";
+import { sendSimpleMessage, getRandomItem, emphasize, renderEquipment, warn } from "./util";
 import { CooldownComputer } from "./CooldownComputer";
 import { POTION_COOLDOWN } from "../data/consts";
 import { potionReflection } from "./reflections";
-import { Round } from "./types";
+import { Round, POTION_PRICE } from "./types";
 import monsters from '../data/monsters';
 import BattleRound from './BattleRound';
 import EquipmentFactory from "./EquipmentFactory";
@@ -113,11 +113,21 @@ export default class GameSingleton {
             character[type] += val
         }
     }
+    buyItem(type: string, num: number) {
+        let character = store.getState().character
+        if (character.money < num * POTION_PRICE) {
+            warn('金钱不足！')
+            return
+        }
+        character[type] += num
+        character.money -= num * POTION_PRICE
+        store.dispatch(initCharacter(character))
+    }
     enhance(eq: Equipment) {
         let character = store.getState().character
         const need = 100 * (eq.enhancedLevel + 1)
         if (character.gem < need) {
-            alert('宝石不足！')
+            warn('宝石不足！')
             return
         }
         character.gem -= need
@@ -135,9 +145,9 @@ export default class GameSingleton {
                 }
             }
             store.dispatch(updateEquipment(eq.part, data))
-            alert('强化成功！')
+            warn('强化成功！')
         } else {
-            alert('强化失败！继续努力吧')
+            warn('强化失败！继续努力吧')
         }
         store.dispatch(initCharacter(character))
     }

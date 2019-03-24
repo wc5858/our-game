@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { AppState } from '../store';
 import ButtonPlay from './ButtonPlay';
 import game from '../game';
-import { showCharacter } from '../store/ui/actions';
+import { showCharacter, showShop } from '../store/ui/actions';
 
 const mapStateToProps = (state: AppState) => ({
     avatar: state.character.avatar,
@@ -29,6 +29,7 @@ interface TopBarProps {
     attack: number
     gem: number
     showCharacter: typeof showCharacter
+    showShop: typeof showShop
 }
 
 const listItems = [1, 2, 3, 4, 5, 6, 7, 8].map((number) =>
@@ -59,6 +60,7 @@ class TopBar extends Component<TopBarProps> {
                     <ButtonPlay btnClick={() => game.play()} />
                 </div>
                 <div className="btn-character" onClick={() => this.props.showCharacter()}></div>
+                <div className="btn-shop" onClick={() => this.props.showShop()}></div>
             </div>
         )
     }
@@ -66,5 +68,5 @@ class TopBar extends Component<TopBarProps> {
 
 export default connect(
     mapStateToProps,
-    { showCharacter }
+    { showCharacter, showShop }
 )(TopBar);

@@ -1,15 +1,15 @@
-.enchance-window {
+.shop-window {
     position: absolute;
     color: #a69785;
     width: 500px;
     height: 400px;
-    padding: 100px 15px;
+    padding: 80px 15px;
     top: 100px;
     left: 50%;
     border: burlywood solid 1px;
     transform: translate(-50%,0);
     background-color: #111;
-    z-index: 1004;
+    z-index: 1001;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -23,8 +23,14 @@
 .enchance-btn {
     text-decoration: underline;
 }
-.enchance-close {
+.shop-close {
     position: absolute;
     right: 10px;
     top: 5px;
+}
+.shop-buy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
 }

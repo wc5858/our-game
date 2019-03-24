@@ -28,3 +28,7 @@ export const emphasize = function (str: string, color?: string) {
 export const renderEquipment = function (eq: Equipment) {
     return `<img src=${eq.avatar} class="icon-eq icon-eq-${rarityColor[eq.rarity]}"/>${emphasize(eq.name, rarityColor[eq.rarity])}`
 }
+
+export const warn = function (msg: string) {
+    alert(msg)
+}

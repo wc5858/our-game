@@ -18,7 +18,7 @@ class ItemIcon extends Component<ItemIconProps> {
                 <img src={this.props.item.avatar} />
                 <div className="item-detail">
                     <div>{`${this.props.item.name}+${this.props.item.enhancedLevel}`}</div>
-                    {this.props.item.attributes.map((i, idx) => <div >{i.dsc + i.value}</div>)}
+                    {this.props.item.attributes.map((i, idx) => <div key={idx}>{i.dsc + i.value}</div>)}
                 </div>
             </div>
         )

@@ -47,10 +47,10 @@ class CharacterWindow extends Component<CharacterWindowProps> {
                     <div className="character-avatar"><img src={this.props.character.avatar} /></div>
                     <div className="character-info">{`${this.props.character.name}`}</div>
                     <div className="character-close" onClick={() => this.props.closeCharacter()}></div>
-                    {parts.map(i =>
-                        <CharacterEquipment type={i} equiped={1} changeEnhancing={this.changeEnhancing} />)}
-                    <CharacterEquipment type="ring" equiped={2} changeEnhancing={this.changeEnhancing}/>
-                    <CharacterEquipment type="rune" equiped={2} changeEnhancing={this.changeEnhancing}/>
+                    {parts.map((i, idx) =>
+                        <CharacterEquipment key={idx} type={i} equiped={1} changeEnhancing={this.changeEnhancing} />)}
+                    <CharacterEquipment type="ring" equiped={2} changeEnhancing={this.changeEnhancing} />
+                    <CharacterEquipment type="rune" equiped={2} changeEnhancing={this.changeEnhancing} />
                     <div className="character-data">
                         <div><div>血量</div><div>{this.props.character.hp}</div></div>
                         <div><div>蓝量</div><div>{this.props.character.mp}</div></div>
@@ -60,7 +60,8 @@ class CharacterWindow extends Component<CharacterWindowProps> {
                         <div><div>血量成长</div><div>{this.props.character.hpGrow}</div></div>
                         <div><div>蓝量成长</div><div>{this.props.character.mpGrow}</div></div>
                     </div>
-                    {this.state.showEnhance && this.state.eqEnhancing ? <EnhanceWindow eq={this.state.eqEnhancing} /> : null}
+                    {this.state.showEnhance && this.state.eqEnhancing ?
+                        <EnhanceWindow eq={this.state.eqEnhancing} closeEnhance={() => this.setState({ showEnhance: false })} /> : null}
                 </div>
             </div>
         )
