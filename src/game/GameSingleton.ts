@@ -201,15 +201,4 @@ export default class GameSingleton {
             sendSimpleMessage(`${pr.name}瓶冷却中！`)
         }
     }
-    // useItem(type: string) {
-    //     const character = store.getState().character
-    //     switch (type) {
-    //         case HP_POTION:
-    //         case MP_POTION:
-    //             this.usePotion(type)
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 }
