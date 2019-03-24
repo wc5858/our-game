@@ -10,9 +10,10 @@ import { Round, POTION_PRICE } from "./types";
 import monsters from '../data/monsters';
 import BattleRound from './BattleRound';
 import EquipmentFactory from "./EquipmentFactory";
-import { addEquipment, updateEquipment as updateEquipment } from "../store/bag/actions";
-import { Equipment } from "../store/bag/types";
+import { addEquipment, updateEquipment as updateEquipment, initBag } from "../store/bag/actions";
+import { Equipment, BagState } from "../store/bag/types";
 import { CharacterState } from "../store/character/types";
+import { startGame } from "../store/ui/actions";
 
 export default class GameSingleton {
     private static instance: GameSingleton
@@ -30,6 +31,15 @@ export default class GameSingleton {
         }
 
         return GameSingleton.instance;
+    }
+    save() {
+        let character = store.getState().character
+        let bag = store.getState().bag
+        localStorage.setItem('save',JSON.stringify({
+            character,
+            bag
+        }))
+        warn('保存成功！')
     }
     init(options: {
         raceID: string
@@ -58,8 +68,12 @@ export default class GameSingleton {
         sendSimpleMessage(`点击下方面板可以释放技能或者使用药水，当然也可以用键盘进行操作`)
         sendSimpleMessage(`点击上方PLAY按钮进入战斗，右上角菜单请自行探索`)
         sendSimpleMessage(`GOOD LUCK，HAVE FUN！`)
-
-        // this.roundRunner.init()
+    }
+    initFromSave(save:any) {
+        store.dispatch(startGame())
+        store.dispatch(initCharacter(save.character))
+        store.dispatch(initBag(save.bag))
+        sendSimpleMessage(`自动读档，您可以继续游戏了！`)
     }
     private endBattle() {
         this.inBattle = false
@@ -74,7 +88,8 @@ export default class GameSingleton {
     private endGame = () => {
         this.isDead = true
         this.inBattle = false
-        sendSimpleMessage(emphasize('你屎了'))
+        localStorage.removeItem('save')
+        sendSimpleMessage(emphasize('你屎了，存档已删除'))
         sendSimpleMessage(`游戏结束，少侠请按F5重新来过吧`)
     }
     private battle = (monsterNum: number) => {

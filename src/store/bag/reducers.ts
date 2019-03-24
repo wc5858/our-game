@@ -1,4 +1,4 @@
-import { BagState, ADD_EQUIPMENT, BagActionTypes, EQUIP_EQUIPMENT } from "./types";
+import { BagState, ADD_EQUIPMENT, BagActionTypes, EQUIP_EQUIPMENT, INIT_BAG } from "./types";
 
 const initialState: BagState = {
     head: [],
@@ -28,6 +28,8 @@ export function bagReducer(
             return Object.assign({}, state, {
                 [action.eqType]: action.payload
             })
+        case INIT_BAG:
+            return Object.assign({},state,action.payload)
         default:
             return state
     }

@@ -59,6 +59,7 @@ class TopBar extends Component<TopBarProps> {
                 <div className="topbar-btn">
                     <ButtonPlay btnClick={() => game.play()} />
                 </div>
+                <div className="game-save" onClick={()=>game.save()}>点击存档</div>
                 <div className="btn-character" onClick={() => this.props.showCharacter()}></div>
                 <div className="btn-shop" onClick={() => this.props.showShop()}></div>
             </div>

@@ -1,4 +1,4 @@
-import { ADD_EQUIPMENT, Equipment, EQUIP_EQUIPMENT } from './types'
+import { ADD_EQUIPMENT, Equipment, EQUIP_EQUIPMENT, BagState, INIT_BAG } from './types'
 
 // TypeScript infers that this function is returning BoardActionTypes
 export function addEquipment(equipment: Equipment) {
@@ -13,5 +13,12 @@ export function updateEquipment(type:string, equipments: Equipment[]) {
         type: EQUIP_EQUIPMENT,
         eqType: type,
         payload: equipments
+    }
+}
+
+export function initBag(bag: BagState) {
+    return {
+        type: INIT_BAG,
+        payload: bag
     }
 }

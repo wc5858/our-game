@@ -14,6 +14,7 @@ import { sendMessage } from './store/board/actions';
 import { initCharacter } from './store/character/actions';
 import CharacterWindow from './components/CharacterWindow';
 import ShopWindow from './components/ShopWindow';
+import game from './game';
 
 const mapStateToProps = (state: AppState) => ({
   showBoards: state.ui.showBoards,
@@ -36,13 +37,19 @@ interface AppProps {
 class App extends Component<AppProps> {
 
   componentWillMount() {
-    // this.props.initGame()
+    let save = localStorage.getItem('save')
+    console.log(save)
+    if (save) {
+      game.initFromSave(JSON.parse(save))
+    }
   }
 
   componentDidMount() {
-    this.props.sendMessage({
-      text: "请选择种族、职业后点击PLAY启动游戏！"
-    })
+    if (!localStorage.getItem('save')) {
+      this.props.sendMessage({
+        text: "请选择种族、职业后点击PLAY启动游戏！"
+      })
+    }
   }
 
   render() {
