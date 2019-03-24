@@ -34,10 +34,16 @@ export interface BagState {
 }
 
 export const ADD_EQUIPMENT = 'ADD_EQUIPMENT'
+export const EQUIP_EQUIPMENT = 'EQUIP_EQUIPMENT'
 
 export interface AddEquipment {
     type: typeof ADD_EQUIPMENT
     payload: Equipment
 }
 
-export type BagActionTypes = AddEquipment
+export interface EquipEquipment {
+    type: typeof EQUIP_EQUIPMENT
+    eqType: string
+    payload: Equipment[]
+}
+export type BagActionTypes = AddEquipment | EquipEquipment

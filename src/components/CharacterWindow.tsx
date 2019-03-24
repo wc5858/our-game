@@ -3,29 +3,17 @@ import './CharacterWindow.css';
 
 import { connect } from "react-redux";
 import { AppState } from '../store';
-import game from '../game';
 import { closeCharacter } from '../store/ui/actions';
+import CharacterEquipment from './CharacterEquipment';
+import { parts } from '../game/types';
+import { CharacterState } from '../store/character/types';
 
 const mapStateToProps = (state: AppState) => ({
-    avatar: state.character.avatar,
-    race: state.character.race,
-    career: state.character.career,
-    name: state.character.name,
-    level: state.character.level,
-    money: state.character.money,
-    attack: state.character.attackPower,
-    gem: state.character.gem
+    character: state.character
 })
 
 interface CharacterWindowProps {
-    avatar: string
-    race: string
-    career: string
-    name: string
-    level: number
-    money: number
-    attack: number
-    gem: number
+    character: CharacterState
     closeCharacter: typeof closeCharacter
 }
 
@@ -40,9 +28,22 @@ class CharacterWindow extends Component<CharacterWindowProps> {
             <div>
                 <div className="screen-mask"></div>
                 <div className="character-window">
-                    <div className="character-avatar"><img src={this.props.avatar} /></div>
-                    <div className="character-info">{`${this.props.name}`}</div>
+                    <div className="character-avatar"><img src={this.props.character.avatar} /></div>
+                    <div className="character-info">{`${this.props.character.name}`}</div>
                     <div className="character-close" onClick={() => this.props.closeCharacter()}></div>
+                    {parts.map(i =>
+                        <CharacterEquipment type={i} equiped={1} />)}
+                    <CharacterEquipment type="ring" equiped={2} />
+                    <CharacterEquipment type="rune" equiped={2} />
+                    <div className="character-data">
+                        <div><div>血量</div><div>{this.props.character.hp}</div></div>
+                        <div><div>蓝量</div><div>{this.props.character.mp}</div></div>
+                        <div><div>攻击力</div><div>{this.props.character.attackPower}</div></div>
+                        <div><div>攻击速度</div><div>{this.props.character.attackSpeed}</div></div>
+                        <div><div>攻击力成长</div><div>{this.props.character.attackGrow}</div></div>
+                        <div><div>血量成长</div><div>{this.props.character.hpGrow}</div></div>
+                        <div><div>蓝量成长</div><div>{this.props.character.mpGrow}</div></div>
+                    </div>
                 </div>
             </div>
         )

@@ -10,7 +10,7 @@ import { Round } from "./types";
 import monsters from '../data/monsters';
 import BattleRound from './BattleRound';
 import EquipmentFactory from "./EquipmentFactory";
-import { addEquipment } from "../store/bag/actions";
+import { addEquipment, equipEquipment } from "../store/bag/actions";
 
 export default class GameSingleton {
     private static instance: GameSingleton
@@ -97,6 +97,54 @@ export default class GameSingleton {
         // 每次战斗遭遇1-5次怪物
         let monsterNum = Math.round(Math.random() * 5)
         this.battle(monsterNum)
+    }
+    wear(type: string, equiped: number, id: number) {
+        const data = store.getState().bag[type]
+        let takenOff
+        let takenOn
+        for (let i of data) {
+            if (i.equiped != 0) {
+                i.equiped = 0
+                takenOff = i
+            }
+            if (i.id == id) {
+                takenOn = i
+                i.equiped = equiped
+            }
+        }
+        let character = store.getState().character
+        if(takenOff) {
+            for(let i of takenOff.attributes) {
+                if(i.type == 'hp') {
+                    let percent = character.curHp / character.hp
+                    character.hp -= i.value
+                    character.curHp = character.hp * percent
+                } else if (i.type == 'mp') {
+                    let percent = character.curMp / character.mp
+                    character.mp -= i.value
+                    character.curMp = character.mp * percent
+                } else {
+                    character[i.type] -= i.value
+                }
+            }
+        }
+        if(takenOn) {
+            for(let i of takenOn.attributes) {
+                if(i.type == 'hp') {
+                    let percent = character.curHp / character.hp
+                    character.hp += i.value
+                    character.curHp = character.hp * percent
+                } else if (i.type == 'mp') {
+                    let percent = character.curMp / character.mp
+                    character.mp += i.value
+                    character.curMp = character.mp * percent
+                } else {
+                    character[i.type] += i.value
+                }
+            }
+        }
+        store.dispatch(equipEquipment(type, data))
+        store.dispatch(initCharacter(character))
     }
     usePotion(key: string, cbHook?: Function) {
         if (this.isDead) {

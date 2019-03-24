@@ -1,0 +1,41 @@
+.icon-item {
+    width: 100%;
+    height: 100%;
+    border: 2px solid;
+    box-sizing: border-box;
+}
+
+.icon-item > img {
+    width: 100%;
+    height: 100%;
+}
+
+.icon-item-purple {
+    border-color: purple;
+}
+.icon-item-blue {
+    border-color: blue;
+}
+.icon-item-orange {
+    border-color: orange;
+}
+.item-detail {
+    position: absolute;
+    left: 120%;
+    top: 50%;
+    display: none;
+    width: 100px;
+    height: 250px;
+    color: white;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, .7);
+    border: burlywood solid 1px;
+    transform: translate(0,-50%);
+    z-index: 1003;
+    border-radius: 5px;
+}
+.icon-item:hover .item-detail {
+    display: block;
+}

@@ -1,0 +1,112 @@
+.character-equipment {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+}
+.equipment-enhance {
+    position: absolute;
+    background: burlywood;
+    padding: 0 0.1em;
+    font-size: 10px;
+    border-radius: 3px;
+    bottom: 0;
+    left: 50%;
+    width: 2.2em;
+    transform: translate(-50%,50%);
+}
+.equipment-change {
+    position: absolute;
+    background: burlywood;
+    padding: 0.1em 0.1em;
+    line-height: 1;
+    font-size: 10px;
+    border-radius: 3px;
+    right: 0;
+    top: 50%;
+    width: 1.2em;
+    height: 2.2em;
+    transform: translate(50%,-50%);
+}
+.equipment-weapon-1 .equipment-change {
+    left: 0;
+    transform: translate(-50%,-50%);
+}
+.equipment-bag {
+    position: absolute;
+    left: 120%;
+    top: 50%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background: burlywood;
+    transform: translate(0,-50%);
+    z-index: 1002;
+    border-radius: 5px;
+}
+.equipment-bag .icon-item {
+    width: 40px;
+    height: 40px;
+}
+.equipment-bag .icon-item + .icon-item {
+    margin-left: 10px;
+}
+.equipment-head-1{
+    left: 211.5px;
+    top: 113.5px;
+}
+.equipment-neck-1{
+    left: 194px;
+    top: 177.5px;
+}
+.equipment-shoulder-1{
+    left: 194px;
+    top: 241.5px;
+}
+.equipment-body-1{
+    left: 194px;
+    top: 305px;
+}
+.equipment-belt-1{
+    left: 211.5px;
+    top: 369px;
+}
+.equipment-bracers-1{
+    left: 211.5px;
+    top: 433px;
+}
+
+.equipment-hands-1{
+    left: 444.5px;
+    top: 113.5px;
+}
+.equipment-foot-1{
+    left: 461.5px;
+    top: 177.5px;
+}
+.equipment-ring-1{
+    left: 461.5px;
+    top: 241.5px;
+}
+.equipment-ring-2{
+    left: 461.5px;
+    top: 305px;
+}
+.equipment-rune-1{
+    left: 444.5px;
+    top: 369px;
+}
+.equipment-rune-2{
+    left: 444.5px;
+    top: 433px;
+}
+.equipment-weapon-1{
+    left: 313px;
+    top: 454px;
+}
+.equipment-shield-1{
+    width: 33px;
+    height: 33px;
+    left: 360px;
+    top: 463px;
+}

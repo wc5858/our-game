@@ -60,5 +60,5 @@ export const rarityColor: {
 } = {
     [RARE_A]: 'blue',
     [RARE_S]: 'purple',
-    [RARE_SS]: 'orangle',
+    [RARE_SS]: 'orange',
 }
