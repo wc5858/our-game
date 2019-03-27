@@ -11,7 +11,6 @@ import { AppState } from './store';
 import { BoardState } from './store/board/types';
 
 import { sendMessage } from './store/board/actions';
-import { initCharacter } from './store/character/actions';
 import CharacterWindow from './components/CharacterWindow';
 import ShopWindow from './components/ShopWindow';
 import game from './game';
@@ -30,7 +29,6 @@ interface AppProps {
   showCharacter: boolean
   showShop: boolean
   sendMessage: typeof sendMessage
-  initCharacter: typeof initCharacter
   board: BoardState
 }
 
@@ -38,7 +36,6 @@ class App extends Component<AppProps> {
 
   componentWillMount() {
     let save = localStorage.getItem('save')
-    console.log(save)
     if (save) {
       game.initFromSave(JSON.parse(save))
     }
@@ -69,5 +66,5 @@ class App extends Component<AppProps> {
 
 export default connect(
   mapStateToProps,
-  { sendMessage, initCharacter }
+  { sendMessage }
 )(App)
