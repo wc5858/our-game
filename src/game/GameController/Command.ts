@@ -1,3 +1,3 @@
 export default interface Command {
-    exute(): void
+    exute(cbHook?: Function): void
 }

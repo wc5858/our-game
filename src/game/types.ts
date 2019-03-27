@@ -1,11 +1,3 @@
-export interface Round {
-    init: Function
-    onOperation: Function
-    callEndBattle: Function
-    callEndGame: Function
-    isEnd: boolean
-}
-
 export type Monster = {
     name: string
     hpRate: number
@@ -34,8 +26,11 @@ export type Career = {
 }
 
 export type Skill = {
+    id: string
     name: string
     dsc: string
+    avatar: string
+    cost: number
     baseDamageRate: number
     damageUpPerLevel: number
     maxLevel: number
@@ -52,7 +47,7 @@ export const RARE_SS = '传说'
 export const WEAPON = 'weapon'
 
 export const parts = ['head', 'neck', 'shoulder', 'body', 'belt', 'bracers', WEAPON, 'shield', 'hands', 'foot', 'ring', 'rune']
-export const weaponTypes = ['sword', 'kinfe']
+export const weaponTypes = ['sword', 'knife']
 
 export const rarity = [RARE_A, RARE_S, RARE_SS]
 export const rarityColor: {

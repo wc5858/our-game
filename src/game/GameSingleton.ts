@@ -3,19 +3,22 @@ import { sendSimpleMessage, getRandomItem, emphasize, renderEquipment, warn } fr
 import { CooldownComputer } from "./CooldownComputer";
 import { POTION_COOLDOWN } from "../data/consts";
 import { potionReflection } from "./reflections";
-import { Round, POTION_PRICE } from "./types";
+import { POTION_PRICE } from "./types";
 import monsters from '../data/monsters';
-import BattleRound from './BattleRound';
+import BattleRound from './Round/BattleRound';
 import { addEquipment, initBag } from "../store/bag/actions";
 import Equipment from '../game/EquipmentCreator/Equipment';
 import { startGame } from "../store/ui/actions";
 import EquipmentCreator from "./EquipmentCreator/EquipmentCreator";
 import Player from "./Player/Player";
+import Round from "./Round/Round";
+import GameController from "./GameController/GameController";
 
 export default class GameSingleton {
     private static instance: GameSingleton
     private equipmentCreator: EquipmentCreator
     private player: Player
+    private skillController: GameController
     private round: Round | null = null
     private coolDownMap = new Map<string, CooldownComputer>()
 
@@ -26,12 +29,32 @@ export default class GameSingleton {
         // GameSingleton单例模式
         this.equipmentCreator = new EquipmentCreator()
         this.player = new Player()
+        this.skillController = new GameController()
+        for (let i = 0; i < 8; i++) {
+            this.skillController.setSkill(i, `00${i + 1}`)
+        }
     }
     public static getInstance() {
         if (!GameSingleton.instance) {
             GameSingleton.instance = new GameSingleton();
         }
         return GameSingleton.instance;
+    }
+
+    ifDead() {
+        return this.isDead
+    }
+    ifInBattle() {
+        return this.inBattle
+    }
+    getPlayer() {
+        return this.player
+    }
+    getCDMap() {
+        return this.coolDownMap
+    }
+    getRound() {
+        return this.round
     }
 
     save() {
@@ -114,9 +137,12 @@ export default class GameSingleton {
     wear(type: string, equiped: number, id: number) {
         this.player.wear(type, equiped, id)
     }
+    useSkill(key: number, cbHook?: Function) {
+        this.skillController.exuteSkill(key, cbHook)
+    }
     usePotion(key: string, cbHook?: Function) {
         if (this.isDead) {
-            sendSimpleMessage(emphasize(`你已经是屎人一个了！木的放技能了`))
+            sendSimpleMessage(emphasize(`你已经是屎人一个了！无法使用药品了`))
             return
         }
         // 检查key是否合法

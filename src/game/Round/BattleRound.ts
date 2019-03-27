@@ -1,6 +1,7 @@
-import * as util from './util'
-import { Monster, Round } from './types'
-import Player from './Player/Player';
+import * as util from '../util'
+import { Monster } from '../types'
+import Player from '../Player/Player';
+import Round from './Round';
 
 export default class BattleRound implements Round {
     monsterName: string
@@ -101,12 +102,12 @@ export default class BattleRound implements Round {
         setTimeout(helper1, this.monsterAttackTime)
         setTimeout(helper2, this.attackTime)
     }
-    onOperation(skillID: string) {
-        this.monsterHp -= 50
+    doAttack(dmg: number) {
+        this.monsterHp -= dmg
         if (this.monsterHp > 0) {
-            util.sendSimpleMessage(`施放技能对怪物造成了${50}伤害，怪物剩余血量${this.monsterHp}`)
+            util.sendSimpleMessage(`施放技能对怪物造成了${dmg}伤害，怪物剩余血量${this.monsterHp}`)
         } else {
-            this.endRound(50)
+            this.endRound(dmg)
         }
     }
 }
