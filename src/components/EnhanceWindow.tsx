@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './EnhanceWindow.css';
 import ItemIcon from './ItemIcon';
-import { Equipment } from '../store/bag/types';
+import Equipment from '../game/EquipmentCreator/Equipment';
 import game from '../game';
 
 interface EnhanceWindowProps {

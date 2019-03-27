@@ -1,21 +1,7 @@
-export interface Attributes {
-    type: string
-    dsc: string
-    value: number
-}
 
-export interface Equipment {
-    id: number
-    name: string
-    part: string
-    subType: string
-    avatar: string
-    attributes: Attributes[]
-    level: number
-    rarity: number
-    enhancedLevel: number
-    equiped: number
-}
+
+import Equipment from '../../game/EquipmentCreator/Equipment'
+import Attribute from '../../game/EquipmentCreator/Attribute'
 
 export interface BagState {
     [key: string]: Equipment[]

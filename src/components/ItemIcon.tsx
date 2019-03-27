@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './ItemIcon.css';
-import { Equipment } from '../store/bag/types';
+import Equipment from '../game/EquipmentCreator/Equipment';
 import { rarityColor } from '../game/types';
 
 interface ItemIconProps {

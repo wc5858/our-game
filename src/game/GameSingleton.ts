@@ -9,19 +9,20 @@ import { potionReflection } from "./reflections";
 import { Round, POTION_PRICE } from "./types";
 import monsters from '../data/monsters';
 import BattleRound from './BattleRound';
-import EquipmentFactory from "./EquipmentFactory";
 import { addEquipment, updateEquipment as updateEquipment, initBag } from "../store/bag/actions";
-import { Equipment, BagState } from "../store/bag/types";
+import Equipment from '../game/EquipmentCreator/Equipment';
 import { CharacterState } from "../store/character/types";
 import { startGame } from "../store/ui/actions";
+import EquipmentCreator from "./EquipmentCreator/EquipmentCreator";
 
 export default class GameSingleton {
     private static instance: GameSingleton
-    private equipmentFactory: EquipmentFactory = new EquipmentFactory()
+    private equipmentCreator: EquipmentCreator
     private round: Round | null = null
     private coolDownMap = new Map<string, CooldownComputer>()
     private constructor() {
         // GameSingleton
+        this.equipmentCreator = new EquipmentCreator()
     }
     private isDead = false
     private inBattle = false
@@ -79,7 +80,7 @@ export default class GameSingleton {
         this.inBattle = false
         sendSimpleMessage(`战斗结束`)
         if (Math.random() < 0.8) {
-            let eq = this.equipmentFactory.getEquipment()
+            let eq = this.equipmentCreator.getEquipment()
             sendSimpleMessage(`获得装备${renderEquipment(eq)}`)
             store.dispatch(addEquipment(eq))
         }
@@ -183,12 +184,12 @@ export default class GameSingleton {
         let character = store.getState().character
         if (takenOff) {
             for (let i of takenOff.attributes) {
-                this.changeEquipment(i.type, character, i.value)
+                this.changeEquipment(i.type, character, -i.value)
             }
         }
         if (takenOn) {
             for (let i of takenOn.attributes) {
-                this.changeEquipment(i.type, character, -i.value)
+                this.changeEquipment(i.type, character, i.value)
             }
         }
         store.dispatch(updateEquipment(type, data))
