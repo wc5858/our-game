@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './ShopWindow.css';
-import ItemIcon from './ItemIcon';
-import { Equipment } from '../store/bag/types';
 import game from '../game';
 import { connect } from "react-redux";
 import { AppState } from '../store';
@@ -9,7 +7,6 @@ import { CharacterState } from '../store/character/types';
 import { closeShop } from '../store/ui/actions';
 import redPotion from '../assets/ab2_POTION_Burning.png'
 import bluePotion from '../assets/ab2_POTION_Blue.png'
-import { POTION_COOLDOWN } from '../data/consts';
 import { POTION_PRICE } from '../data/consts';
 
 const mapStateToProps = (state: AppState) => ({

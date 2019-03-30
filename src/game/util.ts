@@ -1,6 +1,6 @@
 import { store } from "../store"
 import { sendMessage } from '../store/board/actions'
-import { Equipment } from "../store/bag/types";
+import Equipment from './EquipmentCreator/Equipment'
 import { rarity, rarityColor } from "./types";
 
 export const getRandom = function (data: Array<any>) {

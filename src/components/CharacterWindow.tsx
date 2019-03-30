@@ -8,7 +8,7 @@ import CharacterEquipment from './CharacterEquipment';
 import { parts } from '../game/types';
 import { CharacterState } from '../store/character/types';
 import EnhanceWindow from './EnhanceWindow';
-import { Equipment } from '../store/bag/types';
+import Equipment from '../game/EquipmentCreator/Equipment';
 
 const mapStateToProps = (state: AppState) => ({
     character: state.character

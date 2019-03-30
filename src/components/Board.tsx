@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { AppState } from '../store';
 import { Message } from "../store/board/types";
 import { sendMessage } from '../store/board/actions';
-import { initCharacter } from '../store/character/actions';
 
 const mapStateToProps = (state: AppState) => ({
     board: state.board,
@@ -15,7 +14,6 @@ const mapStateToProps = (state: AppState) => ({
 
 interface BoardProps {
     messages: Message[]
-    initCharacter: typeof initCharacter
     sendMessage: typeof sendMessage
 }
 
@@ -38,5 +36,5 @@ class Board extends Component<BoardProps> {
 
 export default connect(
     mapStateToProps,
-    { initCharacter }
+    {  }
 )(Board);

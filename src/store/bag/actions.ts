@@ -1,4 +1,5 @@
-import { ADD_EQUIPMENT, Equipment, EQUIP_EQUIPMENT, BagState, INIT_BAG } from './types'
+import { ADD_EQUIPMENT,  EQUIP_EQUIPMENT, BagState, INIT_BAG } from './types'
+import Equipment from '../../game/EquipmentCreator/Equipment';
 
 // TypeScript infers that this function is returning BoardActionTypes
 export function addEquipment(equipment: Equipment) {

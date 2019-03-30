@@ -1,42 +1,66 @@
-import races from "../data/races";
-import careers from "../data/careers";
 import { store } from "../store";
-import { initCharacter } from "../store/character/actions";
 import { sendSimpleMessage, getRandomItem, emphasize, renderEquipment, warn } from "./util";
 import { CooldownComputer } from "./CooldownComputer";
 import { POTION_COOLDOWN } from "../data/consts";
 import { potionReflection } from "./reflections";
 import { POTION_PRICE } from '../data/consts';
-import { Round } from "./types";
 import monsters from '../data/monsters';
-import BattleRound from './BattleRound';
-import EquipmentFactory from "./EquipmentFactory";
-import { addEquipment, updateEquipment as updateEquipment, initBag } from "../store/bag/actions";
-import { Equipment, BagState } from "../store/bag/types";
-import { CharacterState } from "../store/character/types";
+import BattleRound from './Round/BattleRound';
+import { addEquipment, initBag } from "../store/bag/actions";
+import Equipment from '../game/EquipmentCreator/Equipment';
 import { startGame } from "../store/ui/actions";
+import EquipmentCreator from "./EquipmentCreator/EquipmentCreator";
+import Player from "./Player/Player";
+import Round from "./Round/Round";
+import GameController from "./GameController/GameController";
 
 export default class GameSingleton {
     private static instance: GameSingleton
-    private equipmentFactory: EquipmentFactory = new EquipmentFactory()
+    private equipmentCreator: EquipmentCreator
+    private player: Player
+    private skillController: GameController
     private round: Round | null = null
     private coolDownMap = new Map<string, CooldownComputer>()
-    private constructor() {
-        // GameSingleton
-    }
+
     private isDead = false
     private inBattle = false
+
+    private constructor() {
+        // GameSingleton单例模式
+        this.equipmentCreator = new EquipmentCreator()
+        this.player = new Player()
+        this.skillController = new GameController()
+        for (let i = 0; i < 8; i++) {
+            this.skillController.setSkill(i, `00${i + 1}`)
+        }
+    }
     public static getInstance() {
         if (!GameSingleton.instance) {
             GameSingleton.instance = new GameSingleton();
         }
-
         return GameSingleton.instance;
     }
+
+    ifDead() {
+        return this.isDead
+    }
+    ifInBattle() {
+        return this.inBattle
+    }
+    getPlayer() {
+        return this.player
+    }
+    getCDMap() {
+        return this.coolDownMap
+    }
+    getRound() {
+        return this.round
+    }
+
     save() {
-        let character = store.getState().character
+        let character = this.player.character
         let bag = store.getState().bag
-        localStorage.setItem('save',JSON.stringify({
+        localStorage.setItem('save', JSON.stringify({
             character,
             bag
         }))
@@ -46,33 +70,16 @@ export default class GameSingleton {
         raceID: string
         careerID: string
     }) {
-        let race = races[options.raceID]
-        let career = careers[options.careerID]
-        let character = store.getState().character
-
-        const userName = getRandomItem(['沉睡的朱老板', '可爱的朱老板', '萌萌哒的三狗子'])
-
-        store.dispatch(initCharacter({
-            name: userName,
-            avatar: race.avatar,
-            career: career.name,
-            race: race.name,
-            careerID: options.careerID,
-            raceID: options.raceID,
-            attackGrow: character.attackGrow + race.attackGrow + career.attackGrow,
-            hpGrow: character.hpGrow + race.hpGrow + career.hpGrow,
-            mpGrow: character.mpGrow + race.mpGrow + career.mpGrow
-        }))
-
-        sendSimpleMessage(`${emphasize(userName)}，欢迎来到这个魔幻的游戏`)
-        sendSimpleMessage(`你选择了${emphasize(career.name)}作为职业`)
+        this.player.init(options)
+        sendSimpleMessage(`${emphasize(this.player.character.name)}，欢迎来到这个魔幻的游戏`)
+        sendSimpleMessage(`你选择了${emphasize(this.player.character.career)}作为职业`)
         sendSimpleMessage(`点击下方面板可以释放技能或者使用药水，当然也可以用键盘进行操作`)
         sendSimpleMessage(`点击上方PLAY按钮进入战斗，右上角菜单请自行探索`)
         sendSimpleMessage(`GOOD LUCK，HAVE FUN！`)
     }
-    initFromSave(save:any) {
+    initFromSave(save: any) {
         store.dispatch(startGame())
-        store.dispatch(initCharacter(save.character))
+        this.player.assignCharacter(save.character)
         store.dispatch(initBag(save.bag))
         sendSimpleMessage(`自动读档，您可以继续游戏了！`)
     }
@@ -80,7 +87,7 @@ export default class GameSingleton {
         this.inBattle = false
         sendSimpleMessage(`战斗结束`)
         if (Math.random() < 0.8) {
-            let eq = this.equipmentFactory.getEquipment()
+            let eq = this.equipmentCreator.getEquipment()
             sendSimpleMessage(`获得装备${renderEquipment(eq)}`)
             store.dispatch(addEquipment(eq))
         }
@@ -96,7 +103,7 @@ export default class GameSingleton {
     private battle = (monsterNum: number) => {
         // 这里要递归两次以上只能用箭头函数，否则this就拿不到了，更进一步的原因不清楚
         if (monsterNum > 0) {
-            this.round = new BattleRound(getRandomItem(monsters), () => this.battle(--monsterNum), this.endGame)
+            this.round = new BattleRound(getRandomItem(monsters), () => this.battle(--monsterNum), this.endGame, this.player)
             this.round.init()
         } else {
             this.endBattle()
@@ -116,88 +123,26 @@ export default class GameSingleton {
         let monsterNum = Math.ceil(Math.random() * 5)
         this.battle(monsterNum)
     }
-    private changeEquipment(type: string, character: CharacterState, val: number) {
-        if (type == 'hp') {
-            const percent = character.curHp / character.hp
-            character.hp += val
-            character.curHp = character.hp * percent
-        } else if (type == 'mp') {
-            const percent = character.curMp / character.mp
-            character.mp += val
-            character.curMp = character.mp * percent
-        } else {
-            character[type] += val
-        }
-    }
     buyItem(type: string, num: number) {
-        let character = store.getState().character
-        if (character.money < num * POTION_PRICE) {
+        if (this.player.character.money < num * POTION_PRICE) {
             warn('金钱不足！')
             return
         }
-        character[type] += num
-        character.money -= num * POTION_PRICE
-        store.dispatch(initCharacter(character))
+        this.player.character[type] += num
+        this.player.character.money -= num * POTION_PRICE
     }
     enhance(eq: Equipment) {
-        let character = store.getState().character
-        const need = 100 * (eq.enhancedLevel + 1)
-        if (character.gem < need) {
-            warn('宝石不足！')
-            return
-        }
-        character.gem -= need
-        if (Math.random() < 0.5) {
-            const data = store.getState().bag[eq.part]
-            for (let i of data) {
-                if (i.id == eq.id) {
-                    i.enhancedLevel++
-                    for (let j of eq.attributes) {
-                        const val = Math.ceil(j.value * 0.1)
-                        j.value += val
-                        this.changeEquipment(j.type, character, val)
-                    }
-                    break
-                }
-            }
-            store.dispatch(updateEquipment(eq.part, data))
-            warn('强化成功！')
-        } else {
-            warn('强化失败！继续努力吧')
-        }
-        store.dispatch(initCharacter(character))
+        this.player.enhance(eq)
     }
     wear(type: string, equiped: number, id: number) {
-        const data = store.getState().bag[type]
-        let takenOff
-        let takenOn
-        for (let i of data) {
-            if (i.equiped != 0) {
-                i.equiped = 0
-                takenOff = i
-            }
-            if (i.id == id) {
-                takenOn = i
-                i.equiped = equiped
-            }
-        }
-        let character = store.getState().character
-        if (takenOff) {
-            for (let i of takenOff.attributes) {
-                this.changeEquipment(i.type, character, i.value)
-            }
-        }
-        if (takenOn) {
-            for (let i of takenOn.attributes) {
-                this.changeEquipment(i.type, character, -i.value)
-            }
-        }
-        store.dispatch(updateEquipment(type, data))
-        store.dispatch(initCharacter(character))
+        this.player.wear(type, equiped, id)
+    }
+    useSkill(key: number, cbHook?: Function) {
+        this.skillController.exuteSkill(key, cbHook)
     }
     usePotion(key: string, cbHook?: Function) {
         if (this.isDead) {
-            sendSimpleMessage(emphasize(`你已经是屎人一个了！木的放技能了`))
+            sendSimpleMessage(emphasize(`你已经是屎人一个了！无法使用药品了`))
             return
         }
         // 检查key是否合法
@@ -208,7 +153,7 @@ export default class GameSingleton {
         let cdComputer = this.coolDownMap.get(key)
         // 获取映射
         const pr = potionReflection[key]
-        const character = store.getState().character
+        const character = this.player.character
         const cur = character[pr.cur]
         const max = character[pr.max]
         const num = character[pr.num]
@@ -238,13 +183,8 @@ export default class GameSingleton {
             this.coolDownMap.set(key, cdComputer)
         }
         if (cdComputer.getStatus()) {
-            const val = cur + 0.6 * max
-            store.dispatch(pr.action1({
-                value: Math.min(val, max)
-            }))
-            store.dispatch(pr.action2({
-                value: num - 1
-            }))
+            character[pr.cur] = Math.min(cur + 0.6 * max, max)
+            character[pr.num]--
             sendSimpleMessage(emphasize(`回复了60%的${pr.name}量`, 'green'))
         } else {
             sendSimpleMessage(`${pr.name}瓶冷却中！`)
