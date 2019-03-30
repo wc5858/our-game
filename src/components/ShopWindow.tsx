@@ -10,7 +10,7 @@ import { closeShop } from '../store/ui/actions';
 import redPotion from '../assets/ab2_POTION_Burning.png'
 import bluePotion from '../assets/ab2_POTION_Blue.png'
 import { POTION_COOLDOWN } from '../data/consts';
-import { POTION_PRICE } from '../game/types';
+import { POTION_PRICE } from '../data/consts';
 
 const mapStateToProps = (state: AppState) => ({
     character: state.character

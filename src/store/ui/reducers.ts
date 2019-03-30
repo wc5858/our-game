@@ -5,7 +5,9 @@ import {
     SHOW_CHARACTER,
     CLOSE_CHARACTER,
     SHOW_SHOP,
-    CLOSE_SHOP
+    CLOSE_SHOP,
+    SHOW_LEARN_SKILL,
+    CLOSE_LEARN_SKILL
 } from './types'
 
 const initialState: UIState = {
@@ -41,6 +43,14 @@ export function uiReducer(
         case CLOSE_SHOP:
             return Object.assign({}, state, {
                 showShop: false
+            })
+        case SHOW_LEARN_SKILL:
+            return Object.assign({}, state, {
+                showLearnSkill: true
+            })
+        case CLOSE_LEARN_SKILL:
+            return Object.assign({}, state, {
+                showLearnSkill: false
             })
         default:
             return state

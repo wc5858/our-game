@@ -6,7 +6,8 @@ import { sendSimpleMessage, getRandomItem, emphasize, renderEquipment, warn } fr
 import { CooldownComputer } from "./CooldownComputer";
 import { POTION_COOLDOWN } from "../data/consts";
 import { potionReflection } from "./reflections";
-import { Round, POTION_PRICE } from "./types";
+import { POTION_PRICE } from '../data/consts';
+import { Round } from "./types";
 import monsters from '../data/monsters';
 import BattleRound from './BattleRound';
 import EquipmentFactory from "./EquipmentFactory";

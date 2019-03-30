@@ -62,5 +62,3 @@ export const rarityColor: {
     [RARE_S]: 'purple',
     [RARE_SS]: 'orange',
 }
-
-export const POTION_PRICE = 100

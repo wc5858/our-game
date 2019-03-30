@@ -15,12 +15,14 @@ import { initCharacter } from './store/character/actions';
 import CharacterWindow from './components/CharacterWindow';
 import ShopWindow from './components/ShopWindow';
 import game from './game';
+import SkillWindow from './components/SkillWindow';
 
 const mapStateToProps = (state: AppState) => ({
   showBoards: state.ui.showBoards,
   showCareer: state.ui.showCareer,
   showCharacter: state.ui.showCharacter,
   showShop: state.ui.showShop,
+  showLearnSkill: state.ui.showLearnSkill,
   board: state.board
 })
 
@@ -29,6 +31,7 @@ interface AppProps {
   showCareer: boolean
   showCharacter: boolean
   showShop: boolean
+  showLearnSkill: boolean
   sendMessage: typeof sendMessage
   initCharacter: typeof initCharacter
   board: BoardState
@@ -61,6 +64,7 @@ class App extends Component<AppProps> {
         {this.props.showCareer ? <CareerBoard /> : null}
         {this.props.showCharacter ? <CharacterWindow /> : null}
         {this.props.showShop ? <ShopWindow /> : null}
+        {this.props.showLearnSkill ? <SkillWindow /> : null}
         {this.props.showBoards ? <SkillBar /> : null}
       </div>
     );
